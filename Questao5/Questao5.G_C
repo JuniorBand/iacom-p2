@@ -63,7 +63,7 @@ Line=Eve
 Line=Flag_Erro
 SignalListFile=DOC\Questao5_SIGNALS.txt
 DestinationCompiler=MetrowerksHC12CC
-ProjectModificationStamp=5
+ProjectModificationStamp=7
 
 [2]
 Generated=Yes

@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 11/11/2026, 10:02
+**     Date/Time : 11/11/2026, 21:23
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -29,6 +29,7 @@
 
 #include "PortA.h"
 #include "PortB.h"
+#include "Bit1.h"
 #include "Events.h"
 #include "Cpu.h"
 
@@ -208,6 +209,14 @@ void PE_low_level_init(void)
   setReg8(PORTB, 0x00U);                
   /* DDRB: BIT7=1,BIT6=1,BIT5=1,BIT4=1,BIT3=1,BIT2=1,BIT1=1,BIT0=1 */
   setReg8(DDRB, 0xFFU);                 
+  /* PIEP: PIEP3=0 */
+  clrReg8Bits(PIEP, 0x08U);             
+  /* PTP: PTP3=0 */
+  clrReg8Bits(PTP, 0x08U);              
+  /* PERP: PERP3=0 */
+  clrReg8Bits(PERP, 0x08U);             
+  /* DDRP: DDRP3=1 */
+  setReg8Bits(DDRP, 0x08U);             
   /* CRGINT: LOCKIE=0,SCMIE=0 */
   clrReg8Bits(CRGINT, 0x12U);           
   /* VREGCTRL: LVIE=0 */
@@ -231,6 +240,7 @@ void PE_low_level_init(void)
   /* ### MC9S12C32_80 "Cpu" init code ... */
   /* ### ByteIO "PortA" init code ... */
   /* ### ByteIO "PortB" init code ... */
+  /* ### BitIO "Bit1" init code ... */
   __EI();                              /* Enable interrupts */
 }
 

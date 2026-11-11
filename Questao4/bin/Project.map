@@ -43,8 +43,9 @@ Section Name                    Size  Type     From       To       Segment
 .init                             26     R     0xC000     0xC019   ROM_C000
 .startData                        10     R     0xC01A     0xC023   ROM_C000
 NON_BANKED                        55     R     0xC024     0xC05A   ROM_C000
-.copy                              2     R     0xC05B     0xC05C   ROM_C000
-.text                            530     R   0x3DB000   0x3DB211   PAGE_3D_B000
+.copy                              9     R     0xC05B     0xC063   ROM_C000
+.text                            506     R   0x3DB000   0x3DB1F9   PAGE_3D_B000
+.data                              4   R/W     0x3000     0x3003   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -267,17 +268,16 @@ NON_BANKED                        55     R     0xC024     0xC05A   ROM_C000
 .abs_section_16e                   2   N/I      0x16E      0x16F   .absSeg219
 .abs_section_17e                   2   N/I      0x17E      0x17F   .absSeg220
 .abs_section_ff80                128     R     0xFF80     0xFFFF   .absSeg221
-.bss                               4   R/W     0x3000     0x3003   RAM
-PWM_1_CODE                       135     R   0x3DB212   0x3DB298   PAGE_3D_B000
-PWM_2_CODE                       125     R   0x3DB299   0x3DB315   PAGE_3D_B000
-Timer_1_CODE                      14     R   0x3DB316   0x3DB323   PAGE_3D_B000
-EInt1_CODE                        10     R   0x3DB324   0x3DB32D   PAGE_3D_B000
+PWM_1_CODE                       135     R   0x3DB1FA   0x3DB280   PAGE_3D_B000
+PWM_2_CODE                       125     R   0x3DB281   0x3DB2FD   PAGE_3D_B000
+Timer_1_CODE                      14     R   0x3DB2FE   0x3DB30B   PAGE_3D_B000
+EInt1_CODE                        10     R   0x3DB30C   0x3DB315   PAGE_3D_B000
 PWM_1_DATA                         2   R/W     0x3004     0x3005   RAM
 PWM_2_DATA                         2   R/W     0x3006     0x3007   RAM
 .stack                           128   R/W     0x3008     0x3087   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         40B (dec:     1035)
+READ_ONLY (R):         3FA (dec:     1018)
 READ_WRITE (R/W):       88 (dec:      136)
 NO_INIT (N/I):         104 (dec:      260)
 
@@ -304,7 +304,7 @@ MODULE:                 -- rtshc12.c.o (ansib.lib) --
 - VARIABLES:
 MODULE:                 -- Cpu.c.o --
 - PROCEDURES:
-     PE_low_level_init                       3DB029      9D     157       2   .text       
+     PE_low_level_init                       3DB029      99     153       2   .text       
      Cpu_Interrupt                             C000       2       2      59   .init       
      _EntryPoint                               C002      18      24       3   .init       
 - VARIABLES:
@@ -471,13 +471,13 @@ MODULE:                 -- IO_Map.c.o --
      _PERM                                      254       1       1       0   .abs_section_254
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
-     _PTP                                       258       1       1       2   .abs_section_258
+     _PTP                                       258       1       1       1   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       2   .abs_section_25a
      _RDRP                                      25B       1       1       1   .abs_section_25b
      _PERP                                      25C       1       1       1   .abs_section_25c
      _PPSP                                      25D       1       1       1   .abs_section_25d
-     _PIEP                                      25E       1       1       3   .abs_section_25e
+     _PIEP                                      25E       1       1       2   .abs_section_25e
      _PIFP                                      25F       1       1       3   .abs_section_25f
      _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
@@ -538,48 +538,48 @@ MODULE:                 -- Vectors.c.o --
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
 MODULE:                 -- Events.c.o --
 - PROCEDURES:
-     EInt1_OnInterrupt                       3DB0C6      30      48       2   .text       
-     Timer_1_OnInterrupt                     3DB0F6      1C      28       2   .text       
+     EInt1_OnInterrupt                       3DB0C2      1C      28       2   .text       
+     Timer_1_OnInterrupt                     3DB0DE      1C      28       2   .text       
 - VARIABLES:
 MODULE:                 -- Questao4.c.o --
 - PROCEDURES:
-     main                                    3DB112      1A      26       2   .text       
+     main                                    3DB0FA      1A      26       2   .text       
 - VARIABLES:
-     duty_value_ms_1                           3000       2       2       4   .bss        
-     duty_value_ms_2                           3002       2       2       5   .bss        
+     duty_value_ms_1                           3000       2       2       4   .data       
+     duty_value_ms_2                           3002       2       2       4   .data       
 MODULE:                 -- PWM_1.c.o --
 - PROCEDURES:
-     HWEnDi                                  3DB212       4       4       4   PWM_1_CODE  
-     SetRatio                                3DB216      11      17       2   PWM_1_CODE  
-     PWM_1_Enable                            3DB227       6       6       2   PWM_1_CODE  
-     PWM_1_SetDutyMS                         3DB22D      47      71       2   PWM_1_CODE  
-     PWM_1_Init                              3DB274      25      37       2   PWM_1_CODE  
+     HWEnDi                                  3DB1FA       4       4       4   PWM_1_CODE  
+     SetRatio                                3DB1FE      11      17       2   PWM_1_CODE  
+     PWM_1_Enable                            3DB20F       6       6       2   PWM_1_CODE  
+     PWM_1_SetDutyMS                         3DB215      47      71       2   PWM_1_CODE  
+     PWM_1_Init                              3DB25C      25      37       2   PWM_1_CODE  
 - VARIABLES:
      RatioStore                                3004       2       2       4   PWM_1_DATA  
 MODULE:                 -- PWM_2.c.o --
 - PROCEDURES:
-     HWEnDi                                  3DB299       4       4       4   PWM_2_CODE  
-     SetRatio                                3DB29D      11      17       2   PWM_2_CODE  
-     PWM_2_Enable                            3DB2AE       6       6       2   PWM_2_CODE  
-     PWM_2_SetDutyMS                         3DB2B4      47      71       2   PWM_2_CODE  
-     PWM_2_Init                              3DB2FB      1B      27       2   PWM_2_CODE  
+     HWEnDi                                  3DB281       4       4       4   PWM_2_CODE  
+     SetRatio                                3DB285      11      17       2   PWM_2_CODE  
+     PWM_2_Enable                            3DB296       6       6       2   PWM_2_CODE  
+     PWM_2_SetDutyMS                         3DB29C      47      71       2   PWM_2_CODE  
+     PWM_2_Init                              3DB2E3      1B      27       2   PWM_2_CODE  
 - VARIABLES:
      RatioStore                                3006       2       2       4   PWM_2_DATA  
 MODULE:                 -- Timer_1.c.o --
 - PROCEDURES:
      Timer_1_Interrupt                         C048       9       9       1   NON_BANKED  
-     Timer_1_Enable                          3DB316       2       2       2   Timer_1_CODE
-     Timer_1_EnableEvent                     3DB318       C      12       2   Timer_1_CODE
+     Timer_1_Enable                          3DB2FE       2       2       2   Timer_1_CODE
+     Timer_1_EnableEvent                     3DB300       C      12       2   Timer_1_CODE
 - VARIABLES:
 MODULE:                 -- EInt1.c.o --
 - PROCEDURES:
      EInt1_Interrupt                           C051       A      10       1   NON_BANKED  
-     EInt1_Enable                            3DB324       A      10       2   EInt1_CODE  
+     EInt1_Enable                            3DB30C       A      10       2   EInt1_CODE  
 - VARIABLES:
 MODULE:                 -- PE_Timer.c.o --
 - PROCEDURES:
-     PE_Timer_LngMul                         3DB12C      6C     108       4   .text       
-     PE_Timer_LngHi3                         3DB198      7A     122       4   .text       
+     PE_Timer_LngMul                         3DB114      6C     108       4   .text       
+     PE_Timer_LngHi3                         3DB180      7A     122       4   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -588,17 +588,17 @@ MODULE STATISTIC
 ---------------------------------------------------------------------------------------------
   Start12.c.o                                  0     52      0
   rtshc12.c.o (ansib.lib)                      0     25      0
-  Cpu.c.o                                      0    183      0
+  Cpu.c.o                                      0    179      0
   IO_Map.c.o                                 260      0      0
   Vectors.c.o                                  0      0    128
-  Events.c.o                                   0     76      0
+  Events.c.o                                   0     56      0
   Questao4.c.o                                 4     26      0
   PWM_1.c.o                                    2    135      0
   PWM_2.c.o                                    2    125      0
   Timer_1.c.o                                  0     23      0
   EInt1.c.o                                    0     20      0
   PE_Timer.c.o                                 0    230      0
-  other                                      128     10      2
+  other                                      128     10      9
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
@@ -606,7 +606,7 @@ SECTION USE IN OBJECT-ALLOCATION SECTION
 SECTION: ".text"
   Init PE_low_level_init EInt1_OnInterrupt Timer_1_OnInterrupt main 
   PE_Timer_LngMul PE_Timer_LngHi3 
-SECTION: ".bss"
+SECTION: ".data"
   duty_value_ms_1 duty_value_ms_2 
 SECTION: ".init"
   Cpu_Interrupt _EntryPoint 
@@ -1272,13 +1272,13 @@ OBJECT LIST SORTED BY ADDRESS
      _PERM                                      254       1       1       0   .abs_section_254
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
-     _PTP                                       258       1       1       2   .abs_section_258
+     _PTP                                       258       1       1       1   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       2   .abs_section_25a
      _RDRP                                      25B       1       1       1   .abs_section_25b
      _PERP                                      25C       1       1       1   .abs_section_25c
      _PPSP                                      25D       1       1       1   .abs_section_25d
-     _PIEP                                      25E       1       1       3   .abs_section_25e
+     _PIEP                                      25E       1       1       2   .abs_section_25e
      _PIFP                                      25F       1       1       3   .abs_section_25f
      _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
@@ -1294,8 +1294,8 @@ OBJECT LIST SORTED BY ADDRESS
      _RDRAD                                     273       1       1       1   .abs_section_273
      _PERAD                                     274       1       1       0   .abs_section_274
      _PPSAD                                     275       1       1       0   .abs_section_275
-     duty_value_ms_1                           3000       2       2       4   .bss        
-     duty_value_ms_2                           3002       2       2       5   .bss        
+     duty_value_ms_1                           3000       2       2       4   .data       
+     duty_value_ms_2                           3002       2       2       4   .data       
      RatioStore                                3004       2       2       4   PWM_1_DATA  
      RatioStore                                3006       2       2       4   PWM_2_DATA  
      Cpu_Interrupt                             C000       2       2      59   .init       
@@ -1306,25 +1306,25 @@ OBJECT LIST SORTED BY ADDRESS
      EInt1_Interrupt                           C051       A      10       1   NON_BANKED  
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
      Init                                    3DB000      29      41       2   .text       
-     PE_low_level_init                       3DB029      9D     157       2   .text       
-     EInt1_OnInterrupt                       3DB0C6      30      48       2   .text       
-     Timer_1_OnInterrupt                     3DB0F6      1C      28       2   .text       
-     main                                    3DB112      1A      26       2   .text       
-     PE_Timer_LngMul                         3DB12C      6C     108       4   .text       
-     PE_Timer_LngHi3                         3DB198      7A     122       4   .text       
-     HWEnDi                                  3DB212       4       4       4   PWM_1_CODE  
-     SetRatio                                3DB216      11      17       2   PWM_1_CODE  
-     PWM_1_Enable                            3DB227       6       6       2   PWM_1_CODE  
-     PWM_1_SetDutyMS                         3DB22D      47      71       2   PWM_1_CODE  
-     PWM_1_Init                              3DB274      25      37       2   PWM_1_CODE  
-     HWEnDi                                  3DB299       4       4       4   PWM_2_CODE  
-     SetRatio                                3DB29D      11      17       2   PWM_2_CODE  
-     PWM_2_Enable                            3DB2AE       6       6       2   PWM_2_CODE  
-     PWM_2_SetDutyMS                         3DB2B4      47      71       2   PWM_2_CODE  
-     PWM_2_Init                              3DB2FB      1B      27       2   PWM_2_CODE  
-     Timer_1_Enable                          3DB316       2       2       2   Timer_1_CODE
-     Timer_1_EnableEvent                     3DB318       C      12       2   Timer_1_CODE
-     EInt1_Enable                            3DB324       A      10       2   EInt1_CODE  
+     PE_low_level_init                       3DB029      99     153       2   .text       
+     EInt1_OnInterrupt                       3DB0C2      1C      28       2   .text       
+     Timer_1_OnInterrupt                     3DB0DE      1C      28       2   .text       
+     main                                    3DB0FA      1A      26       2   .text       
+     PE_Timer_LngMul                         3DB114      6C     108       4   .text       
+     PE_Timer_LngHi3                         3DB180      7A     122       4   .text       
+     HWEnDi                                  3DB1FA       4       4       4   PWM_1_CODE  
+     SetRatio                                3DB1FE      11      17       2   PWM_1_CODE  
+     PWM_1_Enable                            3DB20F       6       6       2   PWM_1_CODE  
+     PWM_1_SetDutyMS                         3DB215      47      71       2   PWM_1_CODE  
+     PWM_1_Init                              3DB25C      25      37       2   PWM_1_CODE  
+     HWEnDi                                  3DB281       4       4       4   PWM_2_CODE  
+     SetRatio                                3DB285      11      17       2   PWM_2_CODE  
+     PWM_2_Enable                            3DB296       6       6       2   PWM_2_CODE  
+     PWM_2_SetDutyMS                         3DB29C      47      71       2   PWM_2_CODE  
+     PWM_2_Init                              3DB2E3      1B      27       2   PWM_2_CODE  
+     Timer_1_Enable                          3DB2FE       2       2       2   Timer_1_CODE
+     Timer_1_EnableEvent                     3DB300       C      12       2   Timer_1_CODE
+     EInt1_Enable                            3DB30C       A      10       2   EInt1_CODE  
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1352,7 +1352,19 @@ Cpu.c.o:
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC05B ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC05B ---- SIZE       4 ---
+Filling bytes inserted
+ 00033001
+------- ROM-ADDRESS: 0xC05F ---- RAM-ADDRESS: 0x3001 ---- SIZE       1 ---
+Name of initialized Object : duty_value_ms_1:1
+ 32
+------- ROM-ADDRESS: 0xC060 ---- SIZE       1 ---
+Filling bytes inserted
+ 00
+------- ROM-ADDRESS: 0xC061 ---- RAM-ADDRESS: 0x3003 ---- SIZE       1 ---
+Name of initialized Object : duty_value_ms_2:1
+ 64
+------- ROM-ADDRESS: 0xC062 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1366,13 +1378,13 @@ EInt1_Interrupt           USES _PIFP EInt1_OnInterrupt
 _InterruptVectorTable     USES Cpu_Interrupt EInt1_Interrupt Timer_1_Interrupt 
                                 _EntryPoint 
 Init                      USES _startupData 
-PE_low_level_init         USES _HPRIO _PIEP _PPSP _PERP _PTP _DDRP _PWME 
-                                _MODRR _PWMCTL _PWMCAE _PWMPOL _PTT _DDRT _TSCR1 
-                                _PACTL _OC7M _TIOS _TCTL2 _TTOV _TCTL1 _TSCR2 _TFLG1 
-                                _TIE _CRGINT _VREGCTRL _RDRIV _RDRAD _RDRJ _RDRM 
-                                _RDRP _RDRS _RDRT _INTCR PWM_1_Init PWM_2_Init _TC0 
-                                _TC7 _PIFP 
-EInt1_OnInterrupt         USES _PTP duty_value_ms_2 PWM_2_SetDutyMS 
+PE_low_level_init         USES _HPRIO _PWME _MODRR _PWMCTL _PWMCAE _PWMPOL 
+                                _PTT _DDRT _PTP _DDRP _TSCR1 _PACTL _OC7M _TIOS 
+                                _TCTL2 _TTOV _TCTL1 _TSCR2 _TFLG1 _TIE _PPSP _PERP 
+                                _CRGINT _VREGCTRL _RDRIV _RDRAD _RDRJ _RDRM _RDRP 
+                                _RDRS _RDRT _INTCR PWM_1_Init PWM_2_Init _TC0 _TC7 
+                                _PIFP _PIEP 
+EInt1_OnInterrupt         USES duty_value_ms_2 PWM_2_SetDutyMS 
 Timer_1_OnInterrupt       USES duty_value_ms_1 PWM_1_SetDutyMS 
 main                      USES PE_low_level_init PWM_1_Enable PWM_2_Enable 
                                 EInt1_Enable Timer_1_Enable Timer_1_EnableEvent 
@@ -1472,5 +1484,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 10
-Total size of all blocks to be downloaded: 1035
+Total size of all blocks to be downloaded: 1018
 

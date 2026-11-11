@@ -5,7 +5,7 @@
 **     Processor : MC9S12C128CFU16
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 11/11/2026, 09:50
+**     Date/Time : 11/11/2026, 19:35
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -18,7 +18,6 @@
 **     mail      : support@freescale.com
 ** ###################################################################*/
 #include "Cpu.h"
-#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
 #include "Timer_1.h"

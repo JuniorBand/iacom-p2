@@ -21,12 +21,13 @@ extern "C" {
 #define clrPin(name_pin_component) name_pin_component##_ClrVal()
 #define writePin(name_pin_component, valor) \
   ( (valor) ? (setPin(name_pin_component)) : (clrPin(name_pin_component)) )
-   
-//#define P(N, X) PORT##N##bits.R##N##X // P(A, 1) = PORTAbits.RA1
 
-typedef short i8;
-typedef int i16;
-typedef unsigned short u8;
+#define getPort(name_port_component) name_port_component##_GetVal()    
+#define writePort(name_port_component, valor) name_port_component##_PutVal(valor)
+
+typedef signed char i8;
+typedef signed int i16;
+typedef unsigned char u8;
 typedef unsigned int u16;
 
 #ifdef	__cplusplus

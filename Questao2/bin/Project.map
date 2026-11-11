@@ -14,7 +14,6 @@ FILE SECTION
 ---------------------------------------------------------------------------------------------
 Start12.c.o                             Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 MATH.C.o (ansib.lib)                    Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
-MATHF.C.o (ansib.lib)                   Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 DANSI.C.o (ansib.lib)                   Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 FADD.C.o (ansib.lib)                    Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 FANSI.C.o (ansib.lib)                   Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
@@ -36,7 +35,7 @@ Entry point: 0xC002 (_EntryPoint)
 _startupData is allocated at 0xC01A and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x3000     28
+  _Range   pZeroOut       0x3000     25
   _Copy    *toCopyDownBeg 0xC3CF
 } _startupData;
 
@@ -49,7 +48,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata                            8     R     0xC024     0xC02B   ROM_C000
 NON_BANKED                       931     R     0xC02C     0xC3CE   ROM_C000
 .copy                              2     R     0xC3CF     0xC3D0   ROM_C000
-.text                            840     R   0x3DB000   0x3DB347   PAGE_3D_B000
+.text                            915     R   0x3DB000   0x3DB392   PAGE_3D_B000
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -272,13 +271,13 @@ NON_BANKED                       931     R     0xC02C     0xC3CE   ROM_C000
 .abs_section_16e                   2   N/I      0x16E      0x16F   .absSeg219
 .abs_section_17e                   2   N/I      0x17E      0x17F   .absSeg220
 .abs_section_ff80                128     R     0xFF80     0xFFFF   .absSeg221
-.bss                              26   R/W     0x3000     0x3019   RAM
-.common                            2   R/W     0x301A     0x301B   RAM
-.stack                           128   R/W     0x301C     0x309B   RAM
+.bss                              23   R/W     0x3000     0x3016   RAM
+.common                            2   R/W     0x3017     0x3018   RAM
+.stack                           128   R/W     0x3019     0x3098   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         799 (dec:     1945)
-READ_WRITE (R/W):       9C (dec:      156)
+READ_ONLY (R):         7E4 (dec:     2020)
+READ_WRITE (R/W):       99 (dec:      153)
 NO_INIT (N/I):         104 (dec:      260)
 
 *********************************************************************************************
@@ -297,19 +296,15 @@ MODULE:                 -- Start12.c.o --
 - VARIABLES:
      _startupData                              C01A       6       6       3   .startData  
 - LABELS:
-     __SEG_END_SSTACK                          309C       0       0       1               
+     __SEG_END_SSTACK                          3099       0       0       1               
 MODULE:                 -- MATH.C.o (ansib.lib) --
 - PROCEDURES:
      is_special                              3DB029      3C      60       2   .text       
      sqrt_r                                  3DB065      C8     200       3   .text       
-     sqrt                                    3DB12D      42      66       2   .text       
+     sqrt                                    3DB12D      42      66       8   .text       
 - VARIABLES:
      infinity                                  C024       4       4       4   .rodata     
      nan_union                                 C028       4       4       2   .rodata     
-MODULE:                 -- MATHF.C.o (ansib.lib) --
-- PROCEDURES:
-     sqrtf                                   3DB16F       5       5       4   .text       
-- VARIABLES:
 MODULE:                 -- DANSI.C.o (ansib.lib) --
 - PROCEDURES:
      frexp                                     C037       3       3       1   NON_BANKED  
@@ -319,7 +314,7 @@ MODULE:                 -- FADD.C.o (ansib.lib) --
 - PROCEDURES:
      F_ADDKL                                   C03D      67     103       1   NON_BANKED  
      _FADD                                     C0A4      15      21       5   NON_BANKED  
-     _FSUB                                     C0B9      13      19       1   NON_BANKED  
+     _FSUB                                     C0B9      13      19       2   NON_BANKED  
      _FNEG                                     C0CC       B      11       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FANSI.C.o (ansib.lib) --
@@ -337,13 +332,13 @@ MODULE:                 -- FCMP.C.o (ansib.lib) --
 MODULE:                 -- FCONV.C.o (ansib.lib) --
 - PROCEDURES:
      F_FRLONGK                                 C175      1F      31       1   NON_BANKED  
-     _FSFLOAT                                  C194      12      18       1   NON_BANKED  
+     _FSFLOAT                                  C194      12      18       3   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FMUL.C.o (ansib.lib) --
 - PROCEDURES:
      F_DIVKL                                   C1A6      8E     142       1   NON_BANKED  
      F_MULKL                                   C234      58      88       1   NON_BANKED  
-     _FMUL                                     C28C      14      20       7   NON_BANKED  
+     _FMUL                                     C28C      14      20       8   NON_BANKED  
      _FDIV                                     C2A0      1E      30       5   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- FREGS.C.o (ansib.lib) --
@@ -361,10 +356,10 @@ MODULE:                 -- rtshc12.c.o (ansib.lib) --
 - PROCEDURES:
      _LCMP                                     C37B      19      25       1   NON_BANKED  
      _NEG_P                                    C394       F      15       1   NON_BANKED  
-     _ILSEXT                                   C3A3       7       7       2   NON_BANKED  
+     _ILSEXT                                   C3A3       7       7       3   NON_BANKED  
      _CASE_CHECKED_BYTE                        C3AA      14      20       1   NON_BANKED  
 - VARIABLES:
-     errno                                     301A       2       2       2   .common     
+     errno                                     3017       2       2       2   .common     
 MODULE:                 -- VREGS.C.o (ansib.lib) --
 - PROCEDURES:
      L_NEGK                                    C3BE       7       7       1   NON_BANKED  
@@ -372,7 +367,7 @@ MODULE:                 -- VREGS.C.o (ansib.lib) --
 - VARIABLES:
 MODULE:                 -- Cpu.c.o --
 - PROCEDURES:
-     PE_low_level_init                       3DB174      38      56       2   .text       
+     PE_low_level_init                       3DB16F      38      56       2   .text       
      Cpu_Interrupt                             C000       2       2      61   .init       
      _EntryPoint                               C002      18      24       3   .init       
 - VARIABLES:
@@ -606,16 +601,16 @@ MODULE:                 -- Vectors.c.o --
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
 MODULE:                 -- Questao2.c.o --
 - PROCEDURES:
-     main                                    3DB1AC     19C     412      18   .text       
+     main                                    3DB1A7     1EC     492      13   .text       
 - VARIABLES:
-     x1Re                                      3000       4       4       4   .bss        
-     x2Re                                      3004       4       4       4   .bss        
-     delta                                     3008       4       4      12   .bss        
+     x1                                        3000       4       4       6   .bss        
+     x2                                        3004       4       4       7   .bss        
+     delta                                     3008       4       4      16   .bss        
      x1Im                                      300C       4       4       2   .bss        
      x2Im                                      3010       4       4       2   .bss        
-     a                                         3014       2       2       7   .bss        
-     b                                         3016       2       2       3   .bss        
-     c                                         3018       2       2       2   .bss        
+     a                                         3014       1       1       5   .bss        
+     b                                         3015       1       1       6   .bss        
+     c                                         3016       1       1       3   .bss        
 
 *********************************************************************************************
 MODULE STATISTIC
@@ -623,7 +618,6 @@ MODULE STATISTIC
 ---------------------------------------------------------------------------------------------
   Start12.c.o                                  0     52      0
   MATH.C.o (ansib.lib)                         0    326      8
-  MATHF.C.o (ansib.lib)                        0      5      0
   DANSI.C.o (ansib.lib)                        0      6      0
   FADD.C.o (ansib.lib)                         0    154      0
   FANSI.C.o (ansib.lib)                        0    120      0
@@ -636,16 +630,16 @@ MODULE STATISTIC
   Cpu.c.o                                      0     82      0
   IO_Map.c.o                                 260      0      0
   Vectors.c.o                                  0      0    128
-  Questao2.c.o                                26    412      0
+  Questao2.c.o                                23    492      0
   other                                      128     10      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  Init is_special sqrt_r sqrt sqrtf PE_low_level_init main 
+  Init is_special sqrt_r sqrt PE_low_level_init main 
 SECTION: ".bss"
-  x1Re x2Re delta x1Im x2Im a b c 
+  x1 x2 delta x1Im x2Im a b c 
 SECTION: ".init"
   Cpu_Interrupt _EntryPoint 
 SECTION: ".rodata"
@@ -1327,15 +1321,15 @@ OBJECT LIST SORTED BY ADDRESS
      _RDRAD                                     273       1       1       1   .abs_section_273
      _PERAD                                     274       1       1       0   .abs_section_274
      _PPSAD                                     275       1       1       0   .abs_section_275
-     x1Re                                      3000       4       4       4   .bss        
-     x2Re                                      3004       4       4       4   .bss        
-     delta                                     3008       4       4      12   .bss        
+     x1                                        3000       4       4       6   .bss        
+     x2                                        3004       4       4       7   .bss        
+     delta                                     3008       4       4      16   .bss        
      x1Im                                      300C       4       4       2   .bss        
      x2Im                                      3010       4       4       2   .bss        
-     a                                         3014       2       2       7   .bss        
-     b                                         3016       2       2       3   .bss        
-     c                                         3018       2       2       2   .bss        
-     errno                                     301A       2       2       2   .common     
+     a                                         3014       1       1       5   .bss        
+     b                                         3015       1       1       6   .bss        
+     c                                         3016       1       1       3   .bss        
+     errno                                     3017       2       2       2   .common     
      Cpu_Interrupt                             C000       2       2      61   .init       
      _EntryPoint                               C002      18      24       3   .init       
      infinity                                  C024       4       4       4   .rodata     
@@ -1345,7 +1339,7 @@ OBJECT LIST SORTED BY ADDRESS
      ldexp                                     C03A       3       3       3   NON_BANKED  
      F_ADDKL                                   C03D      67     103       1   NON_BANKED  
      _FADD                                     C0A4      15      21       5   NON_BANKED  
-     _FSUB                                     C0B9      13      19       1   NON_BANKED  
+     _FSUB                                     C0B9      13      19       2   NON_BANKED  
      _FNEG                                     C0CC       B      11       1   NON_BANKED  
      F_FREXP                                   C0D7      1F      31       1   NON_BANKED  
      F_LDEXP                                   C0F6      15      21       1   NON_BANKED  
@@ -1354,10 +1348,10 @@ OBJECT LIST SORTED BY ADDRESS
      ldexpf                                    C131      1E      30       1   NON_BANKED  
      _FCMP                                     C14F      26      38       1   NON_BANKED  
      F_FRLONGK                                 C175      1F      31       1   NON_BANKED  
-     _FSFLOAT                                  C194      12      18       1   NON_BANKED  
+     _FSFLOAT                                  C194      12      18       3   NON_BANKED  
      F_DIVKL                                   C1A6      8E     142       1   NON_BANKED  
      F_MULKL                                   C234      58      88       1   NON_BANKED  
-     _FMUL                                     C28C      14      20       7   NON_BANKED  
+     _FMUL                                     C28C      14      20       8   NON_BANKED  
      _FDIV                                     C2A0      1E      30       5   NON_BANKED  
      F_PULK                                    C2BE      15      21       3   NON_BANKED  
      F_PULL                                    C2D3      15      21       5   NON_BANKED  
@@ -1369,7 +1363,7 @@ OBJECT LIST SORTED BY ADDRESS
      F_NORMK                                   C33D      3E      62       4   NON_BANKED  
      _LCMP                                     C37B      19      25       1   NON_BANKED  
      _NEG_P                                    C394       F      15       1   NON_BANKED  
-     _ILSEXT                                   C3A3       7       7       2   NON_BANKED  
+     _ILSEXT                                   C3A3       7       7       3   NON_BANKED  
      _CASE_CHECKED_BYTE                        C3AA      14      20       1   NON_BANKED  
      L_NEGK                                    C3BE       7       7       1   NON_BANKED  
      SL_PULK                                   C3C5       A      10       1   NON_BANKED  
@@ -1377,10 +1371,9 @@ OBJECT LIST SORTED BY ADDRESS
      Init                                    3DB000      29      41       2   .text       
      is_special                              3DB029      3C      60       2   .text       
      sqrt_r                                  3DB065      C8     200       3   .text       
-     sqrt                                    3DB12D      42      66       2   .text       
-     sqrtf                                   3DB16F       5       5       4   .text       
-     PE_low_level_init                       3DB174      38      56       2   .text       
-     main                                    3DB1AC     19C     412      18   .text       
+     sqrt                                    3DB12D      42      66       8   .text       
+     PE_low_level_init                       3DB16F      38      56       2   .text       
+     main                                    3DB1A7     1EC     492      13   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1389,9 +1382,6 @@ NOT USED PROCEDURES
 MATH.C.o (ansib.lib):
   copysign logb fabs isint pow_i exp_r exp log_r log log10 pow sincos tan sin 
   cos SetSign atan2 asin acos atan sncsh sinh cosh tanh ceil floor fmod 
-MATHF.C.o (ansib.lib):
-  fabsf powf_i expf_r expf logf_r logf log10f powf sincosf tanf sinf cosf 
-  sqrtf_r atan2f asinf acosf atanf sncshf sinhf coshf tanhf ceilf floorf fmodf 
 DANSI.C.o (ansib.lib):
   modf 
 FADD.C.o (ansib.lib):
@@ -1454,13 +1444,12 @@ is_special                USES _LCMP
 sqrt_r                    USES sqrt_r frexp _FMUL _FADD ldexp _FDIV _ILSEXT 
 sqrt                      USES is_special _CASE_CHECKED_BYTE infinity errno 
                                 nan_union sqrt_r 
-sqrtf                     USES sqrt 
 PE_low_level_init         USES _PPST _PERT _DDRT _PUCR _DDRAB _CRGINT 
                                 _VREGCTRL _RDRIV _RDRAD _RDRJ _RDRM _RDRP _RDRS _RDRT 
                                 _INTCR 
-main                      USES PE_low_level_init _PORTAB a b _PTT c main delta 
-                                _FMUL _FCMP _FADD x1Re _FSUB x2Re x1Im _FNEG x2Im 
-                                _FDIV _ILSEXT _FSFLOAT sqrtf 
+main                      USES PE_low_level_init _PORTAB a b _PTT c main _FMUL 
+                                _ILSEXT _FSFLOAT _FSUB delta _FDIV _FCMP sqrt _FADD x2 
+                                x1Im _FNEG x2Im x1 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1489,42 +1478,6 @@ DEPENDENCY TREE
  |  |  |           
  |  |  +- F_PSHK              
  |  |       
- |  +- _FCMP               
- |  |    
- |  +- _FADD               
- |  |  | 
- |  |  +- F_PULK               (see above)
- |  |  |  
- |  |  +- F_PULL               (see above)
- |  |  |  
- |  |  +- F_ADDKL             
- |  |  |  | 
- |  |  |  +- F_XGKL              
- |  |  |  |    
- |  |  |  +- F_NORMK              (see above)
- |  |  |     
- |  |  +- F_PSHK               (see above)
- |  |     
- |  +- _FSUB               
- |  |  | 
- |  |  +- _FADD                (see above)
- |  |     
- |  +- _FNEG               
- |  |    
- |  +- _FDIV               
- |  |  | 
- |  |  +- F_PULL               (see above)
- |  |  |  
- |  |  +- F_PULK               (see above)
- |  |  |  
- |  |  +- F_DIVKL             
- |  |  |  | 
- |  |  |  +- F_MAXK               (see above)
- |  |  |  |  
- |  |  |  +- F_NORMK              (see above)
- |  |  |     
- |  |  +- F_PSHK               (see above)
- |  |     
  |  +- _ILSEXT             
  |  |    
  |  +- _FSFLOAT            
@@ -1539,54 +1492,88 @@ DEPENDENCY TREE
  |  |  |    
  |  |  +- F_PSHK               (see above)
  |  |     
- |  +- sqrtf               
- |     | 
- |     +- sqrt                
- |        | 
- |        +- is_special          
- |        |  | 
- |        |  +- _LCMP               
- |        |       
- |        +- _CASE_CHECKED_BYTE  
- |        |    
- |        +- sqrt_r              
- |           | 
- |           +- frexp               
- |           |  | 
- |           |  +- frexpf              
- |           |     | 
- |           |     +- F_PULL               (see above)
- |           |     |  
- |           |     +- F_TLK               
- |           |     |    
- |           |     +- F_FREXP             
- |           |     |  | 
- |           |     |  +- F_NORMK              (see above)
- |           |     |     
- |           |     +- F_PSHK               (see above)
- |           |        
- |           +- _FMUL                (see above)
- |           |  
- |           +- _FADD                (see above)
- |           |  
- |           +- ldexp               
- |           |  | 
- |           |  +- ldexpf              
- |           |     | 
- |           |     +- F_PULL               (see above)
- |           |     |  
- |           |     +- F_TLK                (see above)
- |           |     |  
- |           |     +- F_LDEXP             
- |           |     |    
- |           |     +- F_PSHK               (see above)
- |           |     |  
- |           |     +- RetErrDom           
- |           |          
- |           +- _FDIV                (see above)
- |           |  
- |           +- _ILSEXT              (see above)
- |              
+ |  +- _FSUB               
+ |  |  | 
+ |  |  +- _FADD               
+ |  |     | 
+ |  |     +- F_PULK               (see above)
+ |  |     |  
+ |  |     +- F_PULL               (see above)
+ |  |     |  
+ |  |     +- F_ADDKL             
+ |  |     |  | 
+ |  |     |  +- F_XGKL              
+ |  |     |  |    
+ |  |     |  +- F_NORMK              (see above)
+ |  |     |     
+ |  |     +- F_PSHK               (see above)
+ |  |        
+ |  +- _FDIV               
+ |  |  | 
+ |  |  +- F_PULL               (see above)
+ |  |  |  
+ |  |  +- F_PULK               (see above)
+ |  |  |  
+ |  |  +- F_DIVKL             
+ |  |  |  | 
+ |  |  |  +- F_MAXK               (see above)
+ |  |  |  |  
+ |  |  |  +- F_NORMK              (see above)
+ |  |  |     
+ |  |  +- F_PSHK               (see above)
+ |  |     
+ |  +- _FCMP               
+ |  |    
+ |  +- sqrt                
+ |  |  | 
+ |  |  +- is_special          
+ |  |  |  | 
+ |  |  |  +- _LCMP               
+ |  |  |       
+ |  |  +- _CASE_CHECKED_BYTE  
+ |  |  |    
+ |  |  +- sqrt_r              
+ |  |     | 
+ |  |     +- frexp               
+ |  |     |  | 
+ |  |     |  +- frexpf              
+ |  |     |     | 
+ |  |     |     +- F_PULL               (see above)
+ |  |     |     |  
+ |  |     |     +- F_TLK               
+ |  |     |     |    
+ |  |     |     +- F_FREXP             
+ |  |     |     |  | 
+ |  |     |     |  +- F_NORMK              (see above)
+ |  |     |     |     
+ |  |     |     +- F_PSHK               (see above)
+ |  |     |        
+ |  |     +- _FMUL                (see above)
+ |  |     |  
+ |  |     +- _FADD                (see above)
+ |  |     |  
+ |  |     +- ldexp               
+ |  |     |  | 
+ |  |     |  +- ldexpf              
+ |  |     |     | 
+ |  |     |     +- F_PULL               (see above)
+ |  |     |     |  
+ |  |     |     +- F_TLK                (see above)
+ |  |     |     |  
+ |  |     |     +- F_LDEXP             
+ |  |     |     |    
+ |  |     |     +- F_PSHK               (see above)
+ |  |     |     |  
+ |  |     |     +- RetErrDom           
+ |  |     |          
+ |  |     +- _FDIV                (see above)
+ |  |     |  
+ |  |     +- _ILSEXT              (see above)
+ |  |        
+ |  +- _FADD                (see above)
+ |  |  
+ |  +- _FNEG               
+ |       
  +- _EntryPoint         
     | 
     +- _Startup            
@@ -1608,5 +1595,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 1945
+Total size of all blocks to be downloaded: 2020
 

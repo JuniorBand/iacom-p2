@@ -6,7 +6,7 @@
 **     Component : ExtInt
 **     Version   : Component 02.094, Driver 01.21, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 11/11/2026, 09:43
+**     Date/Time : 11/11/2026, 19:35
 **     Abstract  :
 **         This component "ExtInt" implements an external 
 **         interrupt, its control methods and interrupt/event 
@@ -21,13 +21,13 @@
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       1             |  PP3_PWM3_KWP3
+**                       4             |  PP0_PWM0_KWP0
 **             ----------------------------------------------------
 **
 **         Port name                   : P
 **
-**         Bit number (in port)        : 3
-**         Bit mask of the port        : $0008
+**         Bit number (in port)        : 0
+**         Bit mask of the port        : $0001
 **
 **         Signal edge/level           : falling
 **         Priority                    : 0
@@ -96,7 +96,7 @@ __interrupt void EInt1_Interrupt(void);
 ** ===================================================================
 */
 
-#define EInt1_GetVal() (PTP & 0x08U)
+#define EInt1_GetVal() (PTP & 0x01U)
 /*
 ** ===================================================================
 **     Method      :  EInt1_GetVal (component ExtInt)

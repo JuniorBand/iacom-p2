@@ -14,7 +14,6 @@
 extern "C" {
 #endif
 
-
 #define getPin(name_pin_component) name_pin_component##_GetVal()
 
 #define setPin(name_pin_component) name_pin_component##_SetVal()
@@ -23,10 +22,11 @@ extern "C" {
   ( (valor) ? (setPin(name_pin_component)) : (clrPin(name_pin_component)) )
 
 #define getPort(name_port_component) name_port_component##_GetVal()    
+#define writePort(name_port_component, valor) name_port_component##_PutVal(valor)
 
-typedef short i8;
-typedef int i16;
-typedef unsigned short u8;
+typedef signed char i8;
+typedef signed int i16;
+typedef unsigned char u8;
 typedef unsigned int u16;
 
 #ifdef	__cplusplus

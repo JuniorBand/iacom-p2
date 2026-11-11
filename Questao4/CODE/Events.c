@@ -21,11 +21,12 @@
 #include "Events.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Macros.h"
+
+extern u16 duty_value_ms_1;
+extern u16 duty_value_ms_2;
 
 #pragma CODE_SEG DEFAULT
-
-extern unsigned int duty_value_ms_1;
-extern unsigned int duty_value_ms_2;
 
 
 /*
@@ -47,17 +48,13 @@ void EInt1_OnInterrupt(void)
   // T2 = 1000 ms
   // Inicia com duty_value_ms_1 = 100 -> 10%
   // Incrementa de 20% em 20% até 90%
-  
-  
-  char botaoPressionado = (char) !Botao_SW1_GetVal();
+   
+  duty_value_ms_2 += 200;    
   
   if(duty_value_ms_2 > 900){
      duty_value_ms_2 = 100;
   }
   
-  if(botaoPressionado){
-    duty_value_ms_2 += 200;    
-  }
   
   PWM_2_SetDutyMS(duty_value_ms_2);  
 
@@ -86,11 +83,11 @@ void Timer_1_OnInterrupt(void)
   // Inicia com duty_value_ms_1 = 50 -> 10%
   // Incrementa de 10% em 10% até 80%
     
+  duty_value_ms_1 += 50;
+
   if (duty_value_ms_1 > 400){ // > 80%
     duty_value_ms_1 = 50; 
   }
-
-  duty_value_ms_1 += 50;
 
   PWM_1_SetDutyMS(duty_value_ms_1);
 

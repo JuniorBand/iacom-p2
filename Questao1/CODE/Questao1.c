@@ -20,6 +20,7 @@
 #include "Events.h"
 #include "PortA.h"
 #include "PortB.h"
+#include "Bit1.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -29,10 +30,11 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "Macros.h"
 
-signed short numero = 0;
-unsigned int resultado = 0; // fatorial comum nao pode ser negativo
+i8 numero = 0;
+u16 resultado = 0; // fatorial comum nao pode ser negativo
+// (A porta B tem só 8 bits, ele é truncado a partir de 6!) 
 
-int fatorial(signed short x, unsigned int* res_fat);
+i8 fatorial(i8 x, u16* res_fat);
 
 void main(void)
 {
@@ -49,15 +51,15 @@ void main(void)
 
   while(1){
   
-    numero = getPort(PortA);
+    numero = getPort(PortA); // getVal retorna byte (unsigned)
 
     if (fatorial(numero, &resultado)){
      
-     PortB_PutVal(resultado);
+     writePort(PortB, resultado);
   
-    } else{
+    } else {
     
-     PortB_PutVal(0);
+     writePort(PortB, 0);
       
     }
   }
@@ -69,7 +71,7 @@ void main(void)
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 
-int fatorial(signed short x, unsigned int* res_fat){
+i8 fatorial(i8 x, u16* res_fat){
   if (x < 0){
     return 0;
   }
@@ -77,7 +79,7 @@ int fatorial(signed short x, unsigned int* res_fat){
   if (x == 0){
     *res_fat = 1;
     return 1;
-  }
+  }       
   
   *res_fat = x;
   

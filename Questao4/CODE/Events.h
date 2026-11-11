@@ -24,7 +24,6 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "PE_Timer.h"
-#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
 #include "Timer_1.h"

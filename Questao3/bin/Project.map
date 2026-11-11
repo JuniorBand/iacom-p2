@@ -42,7 +42,7 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC01A     0xC023   ROM_C000
 NON_BANKED                        85     R     0xC024     0xC078   ROM_C000
 .copy                              2     R     0xC079     0xC07A   ROM_C000
-.text                            451     R   0x3DB000   0x3DB1C2   PAGE_3D_B000
+.text                            455     R   0x3DB000   0x3DB1C6   PAGE_3D_B000
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -267,13 +267,13 @@ NON_BANKED                        85     R     0xC024     0xC078   ROM_C000
 .abs_section_ff80                128     R     0xFF80     0xFFFF   .absSeg221
 .bss                               2   R/W     0x3000     0x3001   RAM
 Potenciometro_DATA                 4   R/W     0x3002     0x3005   RAM
-Potenciometro_CODE                84     R   0x3DB1C3   0x3DB216   PAGE_3D_B000
-PWM_OSC_CODE                     133     R   0x3DB217   0x3DB29B   PAGE_3D_B000
+Potenciometro_CODE                84     R   0x3DB1C7   0x3DB21A   PAGE_3D_B000
+PWM_OSC_CODE                     133     R   0x3DB21B   0x3DB29F   PAGE_3D_B000
 PWM_OSC_DATA                       2   R/W     0x3006     0x3007   RAM
 .stack                           128   R/W     0x3008     0x3087   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         397 (dec:      919)
+READ_ONLY (R):         39B (dec:      923)
 READ_WRITE (R/W):       88 (dec:      136)
 NO_INIT (N/I):         104 (dec:      260)
 
@@ -534,37 +534,37 @@ MODULE:                 -- Vectors.c.o --
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
 MODULE:                 -- Events.c.o --
 - PROCEDURES:
-     Potenciometro_OnEnd                     3DB06C       B      11       2   .text       
+     Potenciometro_OnEnd                     3DB06C       F      15       2   .text       
 - VARIABLES:
 MODULE:                 -- Questao3.c.o --
 - PROCEDURES:
-     main                                    3DB077      19      25       2   .text       
-     gerarDutyCycle                          3DB090      4D      77       2   .text       
+     main                                    3DB07B      19      25       2   .text       
+     gerarDutyCycle                          3DB094      4D      77       2   .text       
 - VARIABLES:
      valorRV1                                  3000       2       2       2   .bss        
 MODULE:                 -- PE_Timer.c.o --
 - PROCEDURES:
-     PE_Timer_LngMul                         3DB0DD      6C     108       2   .text       
-     PE_Timer_LngHi3                         3DB149      7A     122       2   .text       
+     PE_Timer_LngMul                         3DB0E1      6C     108       2   .text       
+     PE_Timer_LngHi3                         3DB14D      7A     122       2   .text       
 - VARIABLES:
 MODULE:                 -- Potenciometro.c.o --
 - PROCEDURES:
      Potenciometro_Interrupt                   C048      31      49       1   NON_BANKED  
-     Potenciometro_Enable                    3DB1C3      15      21       2   Potenciometro_CODE
-     Potenciometro_Start                     3DB1D8      15      21       2   Potenciometro_CODE
-     Potenciometro_GetChanValue16            3DB1ED      18      24       2   Potenciometro_CODE
-     Potenciometro_Init                      3DB205      12      18       2   Potenciometro_CODE
+     Potenciometro_Enable                    3DB1C7      15      21       2   Potenciometro_CODE
+     Potenciometro_Start                     3DB1DC      15      21       4   Potenciometro_CODE
+     Potenciometro_GetChanValue16            3DB1F1      18      24       2   Potenciometro_CODE
+     Potenciometro_Init                      3DB209      12      18       2   Potenciometro_CODE
 - VARIABLES:
      OutFlg                                    3002       1       1       4   Potenciometro_DATA
      ModeFlg                                   3003       1       1       7   Potenciometro_DATA
      Potenciometro_OutV                        3004       2       2       2   Potenciometro_DATA
 MODULE:                 -- PWM_OSC.c.o --
 - PROCEDURES:
-     HWEnDi                                  3DB217       4       4       4   PWM_OSC_CODE
-     SetRatio                                3DB21B      11      17       2   PWM_OSC_CODE
-     PWM_OSC_Enable                          3DB22C       6       6       2   PWM_OSC_CODE
-     PWM_OSC_SetDutyMS                       3DB232      47      71       2   PWM_OSC_CODE
-     PWM_OSC_Init                            3DB279      23      35       2   PWM_OSC_CODE
+     HWEnDi                                  3DB21B       4       4       4   PWM_OSC_CODE
+     SetRatio                                3DB21F      11      17       2   PWM_OSC_CODE
+     PWM_OSC_Enable                          3DB230       6       6       2   PWM_OSC_CODE
+     PWM_OSC_SetDutyMS                       3DB236      47      71       2   PWM_OSC_CODE
+     PWM_OSC_Init                            3DB27D      23      35       2   PWM_OSC_CODE
 - VARIABLES:
      RatioStore                                3006       2       2       4   PWM_OSC_DATA
 
@@ -577,7 +577,7 @@ MODULE STATISTIC
   Cpu.c.o                                      0     93      0
   IO_Map.c.o                                 260      0      0
   Vectors.c.o                                  0      0    128
-  Events.c.o                                   0     11      0
+  Events.c.o                                   0     15      0
   Questao3.c.o                                 2    102      0
   PE_Timer.c.o                                 0    230      0
   Potenciometro.c.o                            4    133      0
@@ -1288,20 +1288,20 @@ OBJECT LIST SORTED BY ADDRESS
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
      Init                                    3DB000      29      41       2   .text       
      PE_low_level_init                       3DB029      43      67       2   .text       
-     Potenciometro_OnEnd                     3DB06C       B      11       2   .text       
-     main                                    3DB077      19      25       2   .text       
-     gerarDutyCycle                          3DB090      4D      77       2   .text       
-     PE_Timer_LngMul                         3DB0DD      6C     108       2   .text       
-     PE_Timer_LngHi3                         3DB149      7A     122       2   .text       
-     Potenciometro_Enable                    3DB1C3      15      21       2   Potenciometro_CODE
-     Potenciometro_Start                     3DB1D8      15      21       2   Potenciometro_CODE
-     Potenciometro_GetChanValue16            3DB1ED      18      24       2   Potenciometro_CODE
-     Potenciometro_Init                      3DB205      12      18       2   Potenciometro_CODE
-     HWEnDi                                  3DB217       4       4       4   PWM_OSC_CODE
-     SetRatio                                3DB21B      11      17       2   PWM_OSC_CODE
-     PWM_OSC_Enable                          3DB22C       6       6       2   PWM_OSC_CODE
-     PWM_OSC_SetDutyMS                       3DB232      47      71       2   PWM_OSC_CODE
-     PWM_OSC_Init                            3DB279      23      35       2   PWM_OSC_CODE
+     Potenciometro_OnEnd                     3DB06C       F      15       2   .text       
+     main                                    3DB07B      19      25       2   .text       
+     gerarDutyCycle                          3DB094      4D      77       2   .text       
+     PE_Timer_LngMul                         3DB0E1      6C     108       2   .text       
+     PE_Timer_LngHi3                         3DB14D      7A     122       2   .text       
+     Potenciometro_Enable                    3DB1C7      15      21       2   Potenciometro_CODE
+     Potenciometro_Start                     3DB1DC      15      21       4   Potenciometro_CODE
+     Potenciometro_GetChanValue16            3DB1F1      18      24       2   Potenciometro_CODE
+     Potenciometro_Init                      3DB209      12      18       2   Potenciometro_CODE
+     HWEnDi                                  3DB21B       4       4       4   PWM_OSC_CODE
+     SetRatio                                3DB21F      11      17       2   PWM_OSC_CODE
+     PWM_OSC_Enable                          3DB230       6       6       2   PWM_OSC_CODE
+     PWM_OSC_SetDutyMS                       3DB236      47      71       2   PWM_OSC_CODE
+     PWM_OSC_Init                            3DB27D      23      35       2   PWM_OSC_CODE
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1350,6 +1350,7 @@ PE_low_level_init         USES _ATDDIEN _PWME _PWMCTL _PWMCAE _PWMPOL _PTP
                                 _RDRP _RDRS _RDRT _INTCR Potenciometro_Init 
                                 PWM_OSC_Init 
 Potenciometro_OnEnd       USES valorRV1 Potenciometro_GetChanValue16 
+                                Potenciometro_Start 
 main                      USES PE_low_level_init Potenciometro_Enable 
                                 Potenciometro_Start PWM_OSC_Enable valorRV1 gerarDutyCycle 
 gerarDutyCycle            USES PWM_OSC_SetDutyMS 
@@ -1418,7 +1419,9 @@ DEPENDENCY TREE
  |  +- Potenciometro_OnEnd 
  |     | 
  |     +- Potenciometro_GetChanValue16
- |          
+ |     |    
+ |     +- Potenciometro_Start  (see above)
+ |        
  +- _EntryPoint          (see above)
     
 *********************************************************************************************
@@ -1428,5 +1431,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 919
+Total size of all blocks to be downloaded: 923
 

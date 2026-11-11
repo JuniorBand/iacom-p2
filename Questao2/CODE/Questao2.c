@@ -31,14 +31,14 @@
 #include <math.h>
 #include "Macros.h"
 
-float x1Re = 0;
-float x2Re = 0;
+float x1 = 0;
+float x2 = 0;
 float delta = 0;
 float x1Im = 0;
 float x2Im = 0;
-int a = 0;
-int b = 0;
-int c = 0;
+i8 a = 0;
+i8 b = 0;
+i8 c = 0;
 
 void main(void)
 {
@@ -52,28 +52,44 @@ void main(void)
   
   //a = 2; b = 3; c = 2;
   
-  a = getPort(PortA);
-  b = getPort(PortB);
-  c = getPort(PortT);
+  a = (i8) getPort(PortA);
+  b = (i8) getPort(PortB);
+  c = (i8) getPort(PortT);
+ 
+  if (a != 0){
+    
+    delta= (float) (b*b - 4.0f*a*c);
+    
+    if (delta == 0){
+    // raizes reais iguais
+        x1 = (float)((-b)/(2.0*a));
+        x2 = x1;
+        
+    } else if (delta > 0){
+        x1 = (float) ((-b + sqrt((double) delta))/(2.0f*a));
+        x2 = (float) ((-b - sqrt((double) delta))/(2.0f*a));
+    
+    } else { // delta < 0
+        delta *= -1;
+        x1 = (float)((-b)/(2.0f*a));
+        x2 = x1;
+        x1Im = (float)((sqrt((double) delta))/(2.0f*a));
+        x2Im = (float)(-(sqrt((double) delta))/(2.0f*a));
+    }
   
-  delta=b*b - 4*a*c;
+  } else { // a = 0 e f(x) = bx + c
+    
+    if (b != 0) {
+    
+        x1 = (float)(-c) / (float)b;
+        x2 = x1;
+        
+    } else { // f(x) = c
+        x1 = 0; 
+        x2 = 0;
+    }
   
-  if (delta == 0){
-  // raizes reais iguais
-      x1Re = (float)((-b)/(2.0*a));
-      x2Re = x1Re;
-      
-  } else if (delta > 0){
-      x1Re = (float)((-b + sqrtf(delta))/(2.0f*a));
-      x2Re = (float)((-b - sqrtf(delta))/(2.0f*a));
-  
-  } else { // delta < 0
-      delta *= -1;
-      x1Re = (float)((-b)/(2.0f*a));
-      x2Re = x1Re;
-      x1Im = (float)((sqrtf(delta))/(2.0f*a));
-      x2Im = (float)(-(sqrtf(delta))/(2.0f*a));
-  }
+  } 
   
   
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/

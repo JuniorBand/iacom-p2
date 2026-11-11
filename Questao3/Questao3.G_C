@@ -57,7 +57,7 @@ Line=Potenciometro
 Line=PWM_OSC
 SignalListFile=DOC\Questao3_SIGNALS.txt
 DestinationCompiler=MetrowerksHC12CC
-ProjectModificationStamp=9
+ProjectModificationStamp=11
 
 [2]
 Generated=Yes

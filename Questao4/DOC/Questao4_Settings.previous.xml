@@ -329,12 +329,12 @@ asm(BGND);
     </CompilerProperties>
   </CPU_Bean>
 
-  <Bean name="Botao_I" type="BitIO">
+  <Bean name="Botao_SW1" type="BitIO">
     <Enabled v="Y"/>
     <Template v="Bit1"/>
 
     <Properties>
-      <Component_name v="Botao_I"/>
+      <Component_name v="Botao_SW1"/>
       <Pin_for_I_O v="PP0_PWM0_KWP0"/>
       <Pin_signal v=""/>
       <Pull_resistor v="pull up"/>
@@ -548,7 +548,7 @@ asm(BGND);
 
     <Properties>
       <Component_name v="EInt1"/>
-      <Pin v="PP3_PWM3_KWP3"/>
+      <Pin v="PP0_PWM0_KWP0"/>
       <Pin_signal v=""/>
       <Pull_resistor v="pull up"/>
       <Generate_interrupt_on sel_value="falling edge" v="rising or falling edge"/>

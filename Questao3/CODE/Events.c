@@ -21,7 +21,9 @@
 #include "Events.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
-extern volatile unsigned int valorRV1;
+#include "Macros.h"
+
+extern volatile u16 valorRV1;
 
 #pragma CODE_SEG DEFAULT
 
@@ -42,7 +44,9 @@ extern volatile unsigned int valorRV1;
 void Potenciometro_OnEnd(void)
 {
   /* Write your code here ... */
-  Potenciometro_GetChanValue16(0x00, &valorRV1);
+  Potenciometro_GetChanValue16(0x00, (u16*)&valorRV1);
+
+  Potenciometro_Start();
 
 }
 

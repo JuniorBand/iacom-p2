@@ -18,7 +18,6 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
-#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
 #include "Timer_1.h"
@@ -30,8 +29,10 @@
 #include "IO_Map.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
-unsigned int duty_value_ms_1 = 0;
-unsigned int duty_value_ms_2 = 0;
+#include "Macros.h"
+
+u16 duty_value_ms_1 = 50;
+u16 duty_value_ms_2 = 100;
 
 void main(void)
 {
@@ -48,7 +49,32 @@ void main(void)
   EInt1_Enable();
   Timer_1_Enable();
   Timer_1_EnableEvent();
+
+// A logica do botao (duty_value_ms_2) usa interrupt, assim como a do timer de 2s (duty_value_ms_1) 
+// Ou seja, sem polling. A logica está no Events.c 
+/*
+  // A logica com polling 
+  i8 botaoPressAntes = 0;
+  while(1){
   
+    i8 botaoPressionado = (i8) !Botao_SW1_GetVal();
+  
+    if(botaoPressionado && !botaoPressAntes){ // 1 (pressionado) e !0 (não pressionado antes)
+      duty_value_ms_2 += 200;    
+    
+      if(duty_value_ms_2 > 900){
+         duty_value_ms_2 = 100;
+      }
+      
+      
+      PWM_2_SetDutyMS(duty_value_ms_2);
+      botaoPressAntes = 1; 
+    } else if (!botaoPressionado && botaoPressAntes){
+      botaoPressAntes = 0;  
+    }
+    
+  }
+*/  
   
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
   for(;;){}

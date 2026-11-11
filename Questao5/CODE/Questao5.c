@@ -50,7 +50,7 @@ volatile u8 time_flag = 0;
 volatile u8 estado_sistema = 0;
 volatile u8 estado_anterior_botao = 0;
 
-void _verificar_niveis(void);
+void verificar_niveis(void);
 
 
 void main(void)
@@ -65,7 +65,7 @@ void main(void)
 
   while (1){
   
-    _verificar_niveis();
+    verificar_niveis();
   
   }
 
@@ -77,7 +77,7 @@ void main(void)
 
 
 
-void _verificar_niveis(void){
+void verificar_niveis(void){
     
     botao_atual = !getPin(Botao_I);
 	  sensA = !getPin(Nivel_A);
@@ -110,7 +110,7 @@ void _verificar_niveis(void){
                 ligar(Eve);
             }
 
-            if (sensB || sensA){ // Nivel B ou A
+            if (sensC || sensB || sensA){ // Nivel B ou A
                 ligar(Evs);
             }
             

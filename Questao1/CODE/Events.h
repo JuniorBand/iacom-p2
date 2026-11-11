@@ -25,6 +25,7 @@
 #include "IO_Map.h"
 #include "PortA.h"
 #include "PortB.h"
+#include "Bit1.h"
 
 #pragma CODE_SEG DEFAULT
 
