@@ -6,7 +6,7 @@
 **     Component : PWM
 **     Version   : Component 02.231, Driver 01.16, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:21
+**     Date/Time : 11/11/2026, 09:43
 **     Abstract  :
 **         This component implements a pulse-width modulation generator
 **         that generates signal with variable duty and fixed cycle. 
@@ -55,6 +55,7 @@
 **             seconds (real)          : 0.95064       0.100656
 **
 **     Contents  :
+**         Enable     - byte PWM_2_Enable(void);
 **         SetRatio16 - byte PWM_2_SetRatio16(word Ratio);
 **         SetDutyUS  - byte PWM_2_SetDutyUS(word Time);
 **         SetDutyMS  - byte PWM_2_SetDutyMS(word Time);
@@ -79,6 +80,22 @@ static word RatioStore;                /* Ratio of L-level to H-level */
 
 /*
 ** ===================================================================
+**     Method      :  HWEnDi (component PWM)
+**
+**     Description :
+**         Enables or disables the peripheral(s) associated with the 
+**         component. The method is called automatically as a part of the 
+**         Enable and Disable methods and several internal methods.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+static void HWEnDi(void)
+{
+  PWME_PWME1 = 1U;                     /* Run counter */
+}
+
+/*
+** ===================================================================
 **     Method      :  SetRatio (component PWM)
 **
 **     Description :
@@ -95,6 +112,28 @@ static void SetRatio(void)
   PWMDTY1 = (byte)(((0xFFUL * (dword)RatioStore) + 0x8000UL) >> 0x10U); /* Calculate new value according to the given ratio */
 }
 #pragma MESSAGE DEFAULT C12056         /* Re-enable WARNING C12056 */
+
+/*
+** ===================================================================
+**     Method      :  PWM_2_Enable (component PWM)
+**
+**     Description :
+**         This method enables the component - it starts the signal
+**         generation. Events may be generated (<DisableEvent>
+**         /<EnableEvent>).
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+byte PWM_2_Enable(void)
+{
+  HWEnDi();                            /* Enable the device */
+  return ERR_OK;                       /* OK */
+}
 
 /*
 ** ===================================================================
@@ -219,8 +258,7 @@ void PWM_2_Init(void)
   setReg8(PWMPER1, 0xFFU);             /* and to the period register */ 
   /* PWMCLK: PCLK1=1 */
   setReg8Bits(PWMCLK, 0x02U);          /* Select clock source */ 
-  /* PWME: PWME1=1 */
-  setReg8Bits(PWME, 0x02U);            /* Run counter */ 
+  HWEnDi();                            /* Enable/disable device according to status flags */
 }
 
 /* END PWM_2. */

@@ -12,7 +12,7 @@
         <group name="Clock settings">
           <group name="Input clock">
             <Clock_type v="External clock source"/>
-            <Clock_frequency__MHz_ v="16"/>
+            <Clock_frequency__MHz_ v="4"/>
             <group name="Clock input pin">
               <Pin v="EXTAL"/>
               <Pin_signal v=""/>
@@ -149,7 +149,7 @@
       <list name="Shared speed modes settings" v="1">
         <group name="Enabled speed modes">
           <boolgroup name="High speed mode" v="Enabled">
-            <Internal_bus_clock v="8"/>
+            <Internal_bus_clock v="2"/>
             <boolgroup name="PLL clock" v="Disabled" />
           </boolgroup>
           <boolgroup name="Low speed mode" v="Disabled" />
@@ -329,102 +329,197 @@ asm(BGND);
     </CompilerProperties>
   </CPU_Bean>
 
-  <Bean name="B0" type="InputPin">
+  <Bean name="Botao_I" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B0"/>
-      <Pin_for_Input v="PP3_PWM3_KWP3"/>
+      <Component_name v="Botao_I"/>
+      <Pin_for_I_O v="PB0_ADDR0_DATA0"/>
       <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
     </Properties>
 
     <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
     </Events>
   </Bean>
 
-  <Bean name="P0" type="InputPin">
+  <Bean name="Nivel_A" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="P0"/>
-      <Pin_for_Input v="PP3_PWM3_KWP3"/>
+      <Component_name v="Nivel_A"/>
+      <Pin_for_I_O v="PP0_PWM0_KWP0"/>
       <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_PP0 v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
     </Properties>
 
     <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
     </Events>
   </Bean>
 
-  <Bean name="B1" type="InputPin">
+  <Bean name="Nivel_B" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B1"/>
-      <Pin_for_Input v="PP3_PWM3_KWP3"/>
+      <Component_name v="Nivel_B"/>
+      <Pin_for_I_O v="PB1_ADDR1_DATA1"/>
       <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
     </Properties>
 
     <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
     </Events>
   </Bean>
 
-  <Bean name="B2" type="InputPin">
+  <Bean name="Nivel_C" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B2"/>
-      <Pin_for_Input v="PP3_PWM3_KWP3"/>
+      <Component_name v="Nivel_C"/>
+      <Pin_for_I_O v="PB2_ADDR2_DATA2"/>
       <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
     </Properties>
 
     <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
     </Events>
   </Bean>
 
-  <Bean name="B3" type="InputPin">
+  <Bean name="Nivel_D" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B3"/>
-      <Pin_for_Input v="PP3_PWM3_KWP3"/>
+      <Component_name v="Nivel_D"/>
+      <Pin_for_I_O v="PB3_ADDR3_DATA3"/>
       <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
     </Properties>
 
     <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
     </Events>
   </Bean>
 
-  <Bean name="B4" type="BitIO">
+  <Bean name="Evs" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B4"/>
-      <Pin_for_I_O v="PP3_PWM3_KWP3"/>
+      <Component_name v="Evs"/>
+      <Pin_for_I_O v="PB4_ADDR4_DATA4"/>
       <Pin_signal v=""/>
-      <Pull_resistor sel_value="no pull resistor" v="autoselected pull"/>
+      <Pull_resistor v="pull up"/>
       <Open_drain v="push-pull"/>
-      <Reduced_drive_for_PP3 v="no"/>
-      <Direction v="Input/Output"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Output"/>
       <group name="Initialization">
         <Init__direction v="Output"/>
         <Init__value v="0"/>
@@ -435,7 +530,7 @@ asm(BGND);
 
     <Methods>
       <GetDir v="don&apos;t generate code"/>
-      <SetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
       <SetInput v="don&apos;t generate code"/>
       <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
@@ -450,17 +545,17 @@ asm(BGND);
     </Events>
   </Bean>
 
-  <Bean name="B5" type="BitIO">
+  <Bean name="Eve" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B5"/>
-      <Pin_for_I_O v="PP2_PWM2_KWP2"/>
+      <Component_name v="Eve"/>
+      <Pin_for_I_O v="PB5_ADDR5_DATA5"/>
       <Pin_signal v=""/>
-      <Pull_resistor sel_value="no pull resistor" v="autoselected pull"/>
+      <Pull_resistor v="pull up"/>
       <Open_drain v="push-pull"/>
-      <Reduced_drive_for_PP2 v="no"/>
-      <Direction v="Input/Output"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Output"/>
       <group name="Initialization">
         <Init__direction v="Output"/>
         <Init__value v="0"/>
@@ -471,7 +566,7 @@ asm(BGND);
 
     <Methods>
       <GetDir v="don&apos;t generate code"/>
-      <SetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
       <SetInput v="don&apos;t generate code"/>
       <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>
@@ -486,17 +581,17 @@ asm(BGND);
     </Events>
   </Bean>
 
-  <Bean name="B7" type="BitIO">
+  <Bean name="Flag_Erro" type="BitIO">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="B7"/>
-      <Pin_for_I_O v="PP1_PWM1_KWP1"/>
+      <Component_name v="Flag_Erro"/>
+      <Pin_for_I_O v="PB7_ADDR7_DATA7"/>
       <Pin_signal v=""/>
-      <Pull_resistor sel_value="no pull resistor" v="autoselected pull"/>
+      <Pull_resistor v="pull up"/>
       <Open_drain v="push-pull"/>
-      <Reduced_drive_for_PP1 v="no"/>
-      <Direction v="Input/Output"/>
+      <Reduced_drive_for_port_B v="no"/>
+      <Direction v="Output"/>
       <group name="Initialization">
         <Init__direction v="Output"/>
         <Init__value v="0"/>
@@ -507,7 +602,7 @@ asm(BGND);
 
     <Methods>
       <GetDir v="don&apos;t generate code"/>
-      <SetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
       <SetInput v="don&apos;t generate code"/>
       <SetOutput v="don&apos;t generate code"/>
       <GetVal v="generate code"/>

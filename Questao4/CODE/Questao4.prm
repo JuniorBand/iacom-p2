@@ -5,7 +5,7 @@
 **     Project   : Questao4
 **     Processor : MC9S12C128CFU16
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:13
+**     Date/Time : 11/11/2026, 09:34
 **     Abstract  :
 **        This file is used by the linker. It describes files to be linked,
 **        memory ranges, stack size, etc. For detailed description of the PRM file

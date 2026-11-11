@@ -18,6 +18,9 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
+#include "PortT.h"
+#include "PortB.h"
+#include "PortA.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -26,6 +29,16 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include <math.h>
+#include "Macros.h"
+
+float x1Re = 0;
+float x2Re = 0;
+float delta = 0;
+float x1Im = 0;
+float x2Im = 0;
+int a = 0;
+int b = 0;
+int c = 0;
 
 void main(void)
 {
@@ -36,17 +49,12 @@ void main(void)
   /*** End of Processor Expert internal initialization.                    ***/
 
   /* Write your code here */
-  x1Re = 0;
-  x2Re = 0;
-  delta = 0;
-  x1Im = 0;
-  x2Im = 0;
   
   //a = 2; b = 3; c = 2;
   
-  a = PortA_GetVal();
-  b = PortB_GetVal();
-  c = PortT_GetVal();
+  a = getPort(PortA);
+  b = getPort(PortB);
+  c = getPort(PortT);
   
   delta=b*b - 4*a*c;
   
@@ -56,8 +64,8 @@ void main(void)
       x2Re = x1Re;
       
   } else if (delta > 0){
-      x1 = (float)((-b + sqrtf(delta))/(2.0f*a));
-      x2 = (float)((-b - sqrtf(delta))/(2.0f*a));
+      x1Re = (float)((-b + sqrtf(delta))/(2.0f*a));
+      x2Re = (float)((-b - sqrtf(delta))/(2.0f*a));
   
   } else { // delta < 0
       delta *= -1;

@@ -18,6 +18,8 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
+#include "PortA.h"
+#include "PortB.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -25,11 +27,12 @@
 #include "IO_Map.h"
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "Macros.h"
 
 signed short numero = 0;
-unsigned short resultado = 0; // fatorial comum nao pode ser negativo
+unsigned int resultado = 0; // fatorial comum nao pode ser negativo
 
-int fatorial(signed short x, int* res_fat);;
+int fatorial(signed short x, unsigned int* res_fat);
 
 void main(void)
 {
@@ -46,9 +49,9 @@ void main(void)
 
   while(1){
   
-    numero = PortA_GetVal();
+    numero = getPort(PortA);
 
-    if (fatorial(numero, resultado)){
+    if (fatorial(numero, &resultado)){
      
      PortB_PutVal(resultado);
   
@@ -66,7 +69,7 @@ void main(void)
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
 
-int fatorial(signed short x, int* res_fat){
+int fatorial(signed short x, unsigned int* res_fat){
   if (x < 0){
     return 0;
   }

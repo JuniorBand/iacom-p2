@@ -23,14 +23,14 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
-#include "B0.h"
-#include "P0.h"
-#include "B1.h"
-#include "B2.h"
-#include "B3.h"
-#include "B4.h"
-#include "B5.h"
-#include "B7.h"
+#include "Botao_I.h"
+#include "Nivel_A.h"
+#include "Nivel_B.h"
+#include "Nivel_C.h"
+#include "Nivel_D.h"
+#include "Evs.h"
+#include "Eve.h"
+#include "Flag_Erro.h"
 
 #pragma CODE_SEG DEFAULT
 

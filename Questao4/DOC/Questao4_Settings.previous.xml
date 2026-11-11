@@ -329,6 +329,43 @@ asm(BGND);
     </CompilerProperties>
   </CPU_Bean>
 
+  <Bean name="Botao_I" type="BitIO">
+    <Enabled v="Y"/>
+    <Template v="Bit1"/>
+
+    <Properties>
+      <Component_name v="Botao_I"/>
+      <Pin_for_I_O v="PP0_PWM0_KWP0"/>
+      <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Reduced_drive_for_PP0 v="no"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <Optimization_for v="speed"/>
+    </Properties>
+
+    <Methods>
+      <GetDir v="don&apos;t generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
+      <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <ClrVal v="don&apos;t generate code"/>
+      <SetVal v="don&apos;t generate code"/>
+      <NegVal v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
+    </Methods>
+
+    <Events>
+    </Events>
+  </Bean>
+
   <Bean name="PWM_1" type="PWM">
     <Enabled v="Y"/>
 
@@ -336,7 +373,7 @@ asm(BGND);
       <Component_name v="PWM_1"/>
       <PWM_or_PPG_device v="PWMPER0"/>
       <Duty_compare v="PWMDTY0"/>
-      <Output_pin v="PP0_PWM0_KWP0"/>
+      <Output_pin v="PT0_PWM0_IOC0"/>
       <Output_pin_signal v=""/>
       <Counter v="PWM0"/>
       <boolgroup name="Interrupt service/event" v="Disabled" />
@@ -362,7 +399,7 @@ asm(BGND);
     </Properties>
 
     <Methods>
-      <Enable v="don&apos;t generate code"/>
+      <Enable v="generate code"/>
       <Disable v="don&apos;t generate code"/>
       <EnableEvent v="don&apos;t generate code"/>
       <DisableEvent v="don&apos;t generate code"/>
@@ -423,7 +460,7 @@ asm(BGND);
     </Properties>
 
     <Methods>
-      <Enable v="don&apos;t generate code"/>
+      <Enable v="generate code"/>
       <Disable v="don&apos;t generate code"/>
       <EnableEvent v="don&apos;t generate code"/>
       <DisableEvent v="don&apos;t generate code"/>
@@ -451,39 +488,90 @@ asm(BGND);
     </Events>
   </Bean>
 
-  <Bean name="Botao_SW1" type="BitIO">
+  <Bean name="Timer_1" type="TimerInt">
     <Enabled v="Y"/>
 
     <Properties>
-      <Component_name v="Botao_SW1"/>
-      <Pin_for_I_O v="PP3_PWM3_KWP3"/>
-      <Pin_signal v=""/>
-      <Pull_resistor sel_value="no pull resistor" v="autoselected pull"/>
-      <Open_drain v="push-pull"/>
-      <Reduced_drive_for_PP3 v="no"/>
-      <Direction v="Input/Output"/>
+      <Component_name v="Timer_1"/>
+      <Periodic_interrupt_source v="TC0"/>
+      <Counter v="TIM_Counter"/>
+      <boolgroup name="Interrupt service/event" v="Enabled">
+        <Interrupt v="Vtimch0"/>
+        <Interrupt_priority v="medium priority"/>
+      </boolgroup>
+      <Interrupt_period v="2000 ms"/>
+      <Same_period_in_modes v="yes"/>
+      <Component_uses_entire_timer v="no"/>
       <group name="Initialization">
-        <Init__direction v="Output"/>
-        <Init__value v="0"/>
+        <Enabled_in_init__code v="yes"/>
+        <Events_enabled_in_init_ v="yes"/>
+        <Stop_in_wait_mode v="no"/>
+        <Stop_in_freeze_mode v="no"/>
       </group>
-      <Safe_mode v="yes"/>
-      <Optimization_for v="speed"/>
+      <group name="CPU clock/speed selection">
+        <High_speed_mode v="This component enabled"/>
+        <Low_speed_mode v="This component disabled"/>
+        <Slow_speed_mode v="This component disabled"/>
+      </group>
     </Properties>
 
     <Methods>
-      <GetDir v="don&apos;t generate code"/>
-      <SetDir v="generate code"/>
-      <SetInput v="don&apos;t generate code"/>
-      <SetOutput v="don&apos;t generate code"/>
-      <GetVal v="generate code"/>
-      <PutVal v="generate code"/>
-      <ClrVal v="generate code"/>
-      <SetVal v="generate code"/>
-      <NegVal v="don&apos;t generate code"/>
-      <GetRawVal v="don&apos;t generate code"/>
+      <Enable v="generate code"/>
+      <Disable v="don&apos;t generate code"/>
+      <EnableEvent v="generate code"/>
+      <DisableEvent v="don&apos;t generate code"/>
+      <SetPeriodMode v="don&apos;t generate code"/>
+      <SetPeriodTicks16 v="don&apos;t generate code"/>
+      <SetPeriodTicks32 v="don&apos;t generate code"/>
+      <SetPeriodUS v="don&apos;t generate code"/>
+      <SetPeriodMS v="don&apos;t generate code"/>
+      <SetPeriodSec v="don&apos;t generate code"/>
+      <SetPeriodReal v="don&apos;t generate code"/>
+      <SetFreqHz v="don&apos;t generate code"/>
+      <SetFreqkHz v="don&apos;t generate code"/>
+      <SetFreqMHz v="don&apos;t generate code"/>
     </Methods>
 
     <Events>
+      <Event_module_name v="Events"/>
+      <event name="BeforeNewSpeed" v="don&apos;t generate code" />
+      <event name="AfterNewSpeed" v="don&apos;t generate code" />
+      <event name="OnInterrupt" v="generate code">
+        <Event_procedure_name v="Timer_1_OnInterrupt"/>
+        <Priority v="same as interrupt"/>
+      </event>
+    </Events>
+  </Bean>
+
+  <Bean name="EInt1" type="ExtInt">
+    <Enabled v="Y"/>
+
+    <Properties>
+      <Component_name v="EInt1"/>
+      <Pin v="PP3_PWM3_KWP3"/>
+      <Pin_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Generate_interrupt_on sel_value="falling edge" v="rising or falling edge"/>
+      <Interrupt v="Vportp"/>
+      <Interrupt_priority v="high priority"/>
+      <group name="Initialization">
+        <Enabled_in_init__code v="yes"/>
+      </group>
+    </Properties>
+
+    <Methods>
+      <Enable v="generate code"/>
+      <Disable v="don&apos;t generate code"/>
+      <GetVal v="generate code"/>
+      <SetEdge v="don&apos;t generate code"/>
+    </Methods>
+
+    <Events>
+      <Event_module_name v="Events"/>
+      <event name="OnInterrupt" v="generate code">
+        <Event_procedure_name v="EInt1_OnInterrupt"/>
+        <Priority v="same as interrupt"/>
+      </event>
     </Events>
   </Bean>
 

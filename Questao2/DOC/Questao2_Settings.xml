@@ -12,7 +12,7 @@
         <group name="Clock settings">
           <group name="Input clock">
             <Clock_type v="External clock source"/>
-            <Clock_frequency__MHz_ v="16"/>
+            <Clock_frequency__MHz_ v="4"/>
             <group name="Clock input pin">
               <Pin v="EXTAL"/>
               <Pin_signal v=""/>
@@ -149,7 +149,7 @@
       <list name="Shared speed modes settings" v="1">
         <group name="Enabled speed modes">
           <boolgroup name="High speed mode" v="Enabled">
-            <Internal_bus_clock v="8"/>
+            <Internal_bus_clock v="2"/>
             <boolgroup name="PLL clock" v="Disabled" />
           </boolgroup>
           <boolgroup name="Low speed mode" v="Disabled" />
@@ -328,5 +328,132 @@ asm(BGND);
       </boolgroup>
     </CompilerProperties>
   </CPU_Bean>
+
+  <Bean name="PortT" type="ByteIO">
+    <Enabled v="Y"/>
+
+    <Properties>
+      <Component_name v="PortT"/>
+      <Port v="T"/>
+      <Port_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <group name="PORT T">
+        <Reduced_drive_for_PT0 v="no"/>
+        <Reduced_drive_for_PT1 v="no"/>
+        <Reduced_drive_for_PT2 v="no"/>
+        <Reduced_drive_for_PT3 v="no"/>
+        <Reduced_drive_for_PT4 v="no"/>
+        <Reduced_drive_for_PT5 v="no"/>
+        <Reduced_drive_for_PT6 v="no"/>
+        <Reduced_drive_for_PT7 v="no"/>
+      </group>
+    </Properties>
+
+    <Methods>
+      <GetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
+      <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <GetBit v="generate code"/>
+      <PutBit v="don&apos;t generate code"/>
+      <SetBit v="don&apos;t generate code"/>
+      <ClrBit v="don&apos;t generate code"/>
+      <NegBit v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
+      <GetRawBit v="don&apos;t generate code"/>
+    </Methods>
+
+    <Events>
+    </Events>
+  </Bean>
+
+  <Bean name="PortB" type="ByteIO">
+    <Enabled v="Y"/>
+
+    <Properties>
+      <Component_name v="PortB"/>
+      <Port v="B"/>
+      <Port_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <group name="PORT B">
+        <Reduced_drive_for_port_B v="no"/>
+      </group>
+    </Properties>
+
+    <Methods>
+      <GetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
+      <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <GetBit v="generate code"/>
+      <PutBit v="don&apos;t generate code"/>
+      <SetBit v="don&apos;t generate code"/>
+      <ClrBit v="don&apos;t generate code"/>
+      <NegBit v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
+      <GetRawBit v="don&apos;t generate code"/>
+    </Methods>
+
+    <Events>
+    </Events>
+  </Bean>
+
+  <Bean name="PortA" type="ByteIO">
+    <Enabled v="Y"/>
+
+    <Properties>
+      <Component_name v="PortA"/>
+      <Port v="A"/>
+      <Port_signal v=""/>
+      <Pull_resistor v="pull up"/>
+      <Open_drain sel_value="The settings is irrelevant for input direction" v="push-pull"/>
+      <Direction v="Input"/>
+      <group name="Initialization">
+        <Init__direction v="Input"/>
+        <Init__value v="0"/>
+      </group>
+      <Safe_mode v="yes"/>
+      <group name="PORT A">
+        <Reduced_drive_for_port_A v="no"/>
+      </group>
+    </Properties>
+
+    <Methods>
+      <GetDir v="generate code"/>
+      <SetDir v="don&apos;t generate code"/>
+      <SetInput v="don&apos;t generate code"/>
+      <SetOutput v="don&apos;t generate code"/>
+      <GetVal v="generate code"/>
+      <PutVal v="don&apos;t generate code"/>
+      <GetBit v="generate code"/>
+      <PutBit v="don&apos;t generate code"/>
+      <SetBit v="don&apos;t generate code"/>
+      <ClrBit v="don&apos;t generate code"/>
+      <NegBit v="don&apos;t generate code"/>
+      <GetRawVal v="don&apos;t generate code"/>
+      <GetRawBit v="don&apos;t generate code"/>
+    </Methods>
+
+    <Events>
+    </Events>
+  </Bean>
 
 </PE_PROJECT_SETTINGS_DOCUMENTATION>

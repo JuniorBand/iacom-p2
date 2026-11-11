@@ -5,7 +5,7 @@
 **     Component : Events
 **     Version   : Driver 01.04
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:13
+**     Date/Time : 11/11/2026, 09:34
 **     Abstract  :
 **         This is user's event module.
 **         Put your event handler code here.
@@ -24,9 +24,10 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "PE_Timer.h"
+#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
-#include "Botao_SW1.h"
+#include "Timer_1.h"
 #include "EInt1.h"
 
 #pragma CODE_SEG DEFAULT
@@ -45,6 +46,22 @@ void EInt1_OnInterrupt(void);
 **     Returns     : Nothing
 ** ===================================================================
 */
+void Timer_1_OnInterrupt(void);
+/*
+** ===================================================================
+**     Event       :  Timer_1_OnInterrupt (module Events)
+**
+**     Component   :  Timer_1 [TimerInt]
+**     Description :
+**         When a timer interrupt occurs this event is called (only
+**         when the component is enabled - <Enable> and the events are
+**         enabled - <EnableEvent>). This event is enabled only if a
+**         <interrupt service/event> is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
 /* END Events */
 #endif /* __Events_H*/
 

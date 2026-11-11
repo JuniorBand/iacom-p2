@@ -6,7 +6,7 @@
 **     Component : IO_Map
 **     Version   : Driver 01.08
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 09/11/2026, 23:50
+**     Date/Time : 11/11/2026, 08:31
 **     Abstract  :
 **         IO_Map.h - implements an IO device's mapping. 
 **         This module contains symbol definitions of all peripheral 
@@ -26,7 +26,7 @@
 #define _IO_MAP_H
 /* Linker pragmas */
 #pragma LINK_INFO DERIVATIVE   "MC9S12C32"
-#pragma LINK_INFO OSCFREQUENCY "16000000"
+#pragma LINK_INFO OSCFREQUENCY "4000000"
 
 
 #define REG_BASE 0x0000                /* Base address for the I/O register block */

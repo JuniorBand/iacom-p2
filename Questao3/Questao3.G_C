@@ -2,7 +2,7 @@
 ;The file contains internal information about the Processor Expert project generation
 [Options]
 ProjectName=Questao3
-ProjectDirectory=D:\Projetos\CodeWarrior\Questao3\
+ProjectDirectory=D:\Projetos\CodeWarrior\IACOM\Questao3\
 DestEventsDirectory=CODE\
 DestDriversSubDirectory=
 DestDocumentationDirectory=DOC\
@@ -39,6 +39,8 @@ XtraAge0=1567268361
 GenExtraFileType0=4
 GenEventModules=1
 Line=Events
+GenMethodsInEvents=1
+Line=Potenciometro_OnEnd
 GenAllModules=9
 Line=Cpu
 Line=Events

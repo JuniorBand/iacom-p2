@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 09/11/2026, 21:57
+**     Date/Time : 11/11/2026, 10:02
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -27,10 +27,12 @@
 
 /* MODULE Cpu. */
 
+#include "PortA.h"
+#include "PortB.h"
 #include "Events.h"
 #include "Cpu.h"
 
-#define CGM_DELAY  0x03FFU
+#define CGM_DELAY  0xFFU
 
 #pragma DATA_SEG DEFAULT               /* Select data segment "DEFAULT" */
 #pragma CODE_SEG DEFAULT
@@ -198,6 +200,14 @@ void _EntryPoint(void)
 void PE_low_level_init(void)
 {
   /* Common initialization of the CPU registers */
+  /* PUCR: PUPBE=1,PUPAE=1 */
+  setReg8Bits(PUCR, 0x03U);             
+  /* DDRA: BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  setReg8(DDRA, 0x00U);                 
+  /* PORTB: BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  setReg8(PORTB, 0x00U);                
+  /* DDRB: BIT7=1,BIT6=1,BIT5=1,BIT4=1,BIT3=1,BIT2=1,BIT1=1,BIT0=1 */
+  setReg8(DDRB, 0xFFU);                 
   /* CRGINT: LOCKIE=0,SCMIE=0 */
   clrReg8Bits(CRGINT, 0x12U);           
   /* VREGCTRL: LVIE=0 */
@@ -219,6 +229,8 @@ void PE_low_level_init(void)
   /* INTCR: IRQEN=0 */
   clrReg8Bits(INTCR, 0x40U);            
   /* ### MC9S12C32_80 "Cpu" init code ... */
+  /* ### ByteIO "PortA" init code ... */
+  /* ### ByteIO "PortB" init code ... */
   __EI();                              /* Enable interrupts */
 }
 

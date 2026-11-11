@@ -6,7 +6,7 @@
 **     Component : ExtInt
 **     Version   : Component 02.094, Driver 01.21, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:23
+**     Date/Time : 11/11/2026, 09:43
 **     Abstract  :
 **         This component "ExtInt" implements an external 
 **         interrupt, its control methods and interrupt/event 
@@ -21,17 +21,17 @@
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       2             |  PP2_PWM2_KWP2
+**                       1             |  PP3_PWM3_KWP3
 **             ----------------------------------------------------
 **
 **         Port name                   : P
 **
-**         Bit number (in port)        : 2
-**         Bit mask of the port        : $0004
+**         Bit number (in port)        : 3
+**         Bit mask of the port        : $0008
 **
-**         Signal edge/level           : rising
-**         Priority                    : 1
-**         Pull option                 : off
+**         Signal edge/level           : falling
+**         Priority                    : 0
+**         Pull option                 : up
 **         Initial state               : Enabled
 **
 **         Edge register               : PPSP      [$025D]
@@ -42,6 +42,7 @@
 **         Port data register          : PTP       [$0258]
 **         Port control register       : DDRP      [$025A]
 **     Contents  :
+**         Enable - void EInt1_Enable(void);
 **         GetVal - bool EInt1_GetVal(void);
 **
 **     Copyright : 1997 - 2011 Freescale Semiconductor, Inc. All Rights Reserved.
@@ -68,6 +69,24 @@
 
 /*
 ** ===================================================================
+**     Method      :  EInt1_Enable (component ExtInt)
+**
+**     Description :
+**         Enable the component - the external events are accepted.
+**         This method is available only if HW module allows
+**         enable/disable of the interrupt.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+void EInt1_Enable(void)
+{
+  PIFP = 0x08U;                         /* Clear flag */
+  PIEP_PIEP3 = 1U;                      /* Enable interrupt */
+}
+
+/*
+** ===================================================================
 **     Method      :  EInt1_Interrupt (component ExtInt)
 **
 **     Description :
@@ -79,7 +98,7 @@
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
 ISR(EInt1_Interrupt)
 {
-  PIFP = 0x04U;                         /* Clear flag */
+  PIFP = 0x08U;                         /* Clear flag */
   EInt1_OnInterrupt();
 }
 

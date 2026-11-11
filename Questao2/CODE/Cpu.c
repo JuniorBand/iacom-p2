@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 09/11/2026, 23:09
+**     Date/Time : 11/11/2026, 10:04
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -27,10 +27,13 @@
 
 /* MODULE Cpu. */
 
+#include "PortT.h"
+#include "PortB.h"
+#include "PortA.h"
 #include "Events.h"
 #include "Cpu.h"
 
-#define CGM_DELAY  0x03FFU
+#define CGM_DELAY  0xFFU
 
 #pragma DATA_SEG DEFAULT               /* Select data segment "DEFAULT" */
 #pragma CODE_SEG DEFAULT
@@ -198,6 +201,18 @@ void _EntryPoint(void)
 void PE_low_level_init(void)
 {
   /* Common initialization of the CPU registers */
+  /* PPST: PPST7=0,PPST6=0,PPST5=0,PPST4=0,PPST3=0,PPST2=0,PPST1=0,PPST0=0 */
+  setReg8(PPST, 0x00U);                 
+  /* PERT: PERT7=1,PERT6=1,PERT5=1,PERT4=1,PERT3=1,PERT2=1,PERT1=1,PERT0=1 */
+  setReg8(PERT, 0xFFU);                 
+  /* DDRT: DDRT7=0,DDRT6=0,DDRT5=0,DDRT4=0,DDRT3=0,DDRT2=0,DDRT1=0,DDRT0=0 */
+  setReg8(DDRT, 0x00U);                 
+  /* PUCR: PUPBE=1,PUPAE=1 */
+  setReg8Bits(PUCR, 0x03U);             
+  /* DDRB: BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  setReg8(DDRB, 0x00U);                 
+  /* DDRA: BIT7=0,BIT6=0,BIT5=0,BIT4=0,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  setReg8(DDRA, 0x00U);                 
   /* CRGINT: LOCKIE=0,SCMIE=0 */
   clrReg8Bits(CRGINT, 0x12U);           
   /* VREGCTRL: LVIE=0 */
@@ -219,6 +234,9 @@ void PE_low_level_init(void)
   /* INTCR: IRQEN=0 */
   clrReg8Bits(INTCR, 0x40U);            
   /* ### MC9S12C32_80 "Cpu" init code ... */
+  /* ### ByteIO "PortT" init code ... */
+  /* ### ByteIO "PortB" init code ... */
+  /* ### ByteIO "PortA" init code ... */
   __EI();                              /* Enable interrupts */
 }
 

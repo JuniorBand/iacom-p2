@@ -6,10 +6,11 @@
 **     Component : BitIO
 **     Version   : Component 02.075, Driver 03.16, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:21
+**     Date/Time : 11/11/2026, 09:50
 **     Abstract  :
 **         This component "BitIO" implements an one-bit input/output.
 **         It uses one bit/pin of a port.
+**         Note: This component is set to work in Input direction only.
 **         Methods of this component are mostly implemented as a macros
 **         (if supported by target language and compiler).
 **     Settings  :
@@ -17,29 +18,24 @@
 **             ----------------------------------------------------
 **                Number (on package)  |    Name
 **             ----------------------------------------------------
-**                       1             |  PP3_PWM3_KWP3
+**                       4             |  PP0_PWM0_KWP0
 **             ----------------------------------------------------
 **
 **         Port name                   : P
 **
-**         Bit number (in port)        : 3
-**         Bit mask of the port        : $0008
+**         Bit number (in port)        : 0
+**         Bit mask of the port        : $0001
 **
-**         Initial direction           : Output (direction can be changed)
-**         Safe mode                   : yes
+**         Initial direction           : Input (direction cannot be changed)
 **         Initial output value        : 0
-**         Initial pull option         : off
+**         Initial pull option         : up
 **
 **         Port data register          : PTP       [$0258]
 **         Port control register       : DDRP      [$025A]
 **
 **         Optimization for            : speed
 **     Contents  :
-**         SetDir - void Botao_SW1_SetDir(bool Dir);
 **         GetVal - bool Botao_SW1_GetVal(void);
-**         PutVal - void Botao_SW1_PutVal(bool Val);
-**         ClrVal - void Botao_SW1_ClrVal(void);
-**         SetVal - void Botao_SW1_SetVal(void);
 **
 **     Copyright : 1997 - 2011 Freescale Semiconductor, Inc. All Rights Reserved.
 **     
@@ -55,7 +51,6 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
-#include "PE_Timer.h"
 #include "Cpu.h"
 
 #pragma DATA_SEG Botao_SW1_DATA        /* Select data segment "Botao_SW1_DATA" */
@@ -70,6 +65,7 @@
 **           a) direction = Input  : reads the input value from the
 **                                   pin and returns it
 **           b) direction = Output : returns the last written value
+**         Note: This component is set to work in Input direction only.
 **     Parameters  : None
 **     Returns     :
 **         ---             - Input value. Possible values:
@@ -83,107 +79,6 @@ bool Botao_SW1_GetVal(void)
 
 **  This method is implemented as a macro. See Botao_SW1.h file.  **
 */
-
-/*
-** ===================================================================
-**     Method      :  Botao_SW1_PutVal (component BitIO)
-**
-**     Description :
-**         This method writes the new output value.
-**           a) direction = Input  : sets the new output value;
-**                                   this operation will be shown on
-**                                   output after the direction has
-**                                   been switched to output
-**                                   (SetDir(TRUE);)
-**           b) direction = Output : directly writes the value to the
-**                                   appropriate pin
-**     Parameters  :
-**         NAME       - DESCRIPTION
-**         Val             - Output value. Possible values:
-**                           FALSE - logical "0" (Low level)
-**                           TRUE - logical "1" (High level)
-**     Returns     : Nothing
-** ===================================================================
-*/
-void Botao_SW1_PutVal(bool Val)
-{
-  if (Val) {
-    setReg8Bits(PTP, 0x08U);           /* PTP3=0x01U */
-    Shadow_P |= 0x08U;                 /* Set-up shadow variable */
-  } else { /* !Val */
-    clrReg8Bits(PTP, 0x08U);           /* PTP3=0x00U */
-    Shadow_P &= 0xF7U;                 /* Set-up shadow variable */
-  } /* !Val */
-}
-
-/*
-** ===================================================================
-**     Method      :  Botao_SW1_ClrVal (component BitIO)
-**
-**     Description :
-**         This method clears (sets to zero) the output value.
-**           a) direction = Input  : sets the output value to "0";
-**                                   this operation will be shown on
-**                                   output after the direction has
-**                                   been switched to output
-**                                   (SetDir(TRUE);)
-**           b) direction = Output : directly writes "0" to the
-**                                   appropriate pin
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-/*
-void Botao_SW1_ClrVal(void)
-
-**  This method is implemented as a macro. See Botao_SW1.h file.  **
-*/
-
-/*
-** ===================================================================
-**     Method      :  Botao_SW1_SetVal (component BitIO)
-**
-**     Description :
-**         This method sets (sets to one) the output value.
-**           a) direction = Input  : sets the output value to "1";
-**                                   this operation will be shown on
-**                                   output after the direction has
-**                                   been switched to output
-**                                   (SetDir(TRUE);)
-**           b) direction = Output : directly writes "1" to the
-**                                   appropriate pin
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-/*
-void Botao_SW1_SetVal(void)
-
-**  This method is implemented as a macro. See Botao_SW1.h file.  **
-*/
-
-/*
-** ===================================================================
-**     Method      :  Botao_SW1_SetDir (component BitIO)
-**
-**     Description :
-**         This method sets direction of the component.
-**     Parameters  :
-**         NAME       - DESCRIPTION
-**         Dir        - Direction to set (FALSE or TRUE)
-**                      FALSE = Input, TRUE = Output
-**     Returns     : Nothing
-** ===================================================================
-*/
-void Botao_SW1_SetDir(bool Dir)
-{
-  if (Dir) {
-    setReg8(PTP, (getReg8(PTP) & (byte)(~(byte)0x08U)) | (Shadow_P & 0x08U)); /* PTP3=Shadow_P[bit 3] */
-    setReg8Bits(DDRP, 0x08U);          /* DDRP3=0x01U */
-  } else { /* !Dir */
-    clrReg8Bits(DDRP, 0x08U);          /* DDRP3=0x00U */
-  } /* !Dir */
-}
 
 
 /* END Botao_SW1. */

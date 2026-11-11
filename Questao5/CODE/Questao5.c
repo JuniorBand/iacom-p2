@@ -18,14 +18,14 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
-#include "B0.h"
-#include "P0.h"
-#include "B1.h"
-#include "B2.h"
-#include "B3.h"
-#include "B4.h"
-#include "B5.h"
-#include "B7.h"
+#include "Botao_I.h"
+#include "Nivel_A.h"
+#include "Nivel_B.h"
+#include "Nivel_C.h"
+#include "Nivel_D.h"
+#include "Evs.h"
+#include "Eve.h"
+#include "Flag_Erro.h"
 /* Include shared modules, which are used for whole project */
 #include "PE_Types.h"
 #include "PE_Error.h"
@@ -35,16 +35,9 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "Macros.h"
 
-#define  BotaoI !P(B0)
-#define  nivelA !P(P0)
-#define  nivelB !P(B1)
-#define  nivelC !P(B2)
-#define  nivelD !P(B3)
-#define  Evs P(B4)
-#define  Eve P(B5)
-#define erro_flag P(B7)
-#define ligar(pino)    ((pino) = 1)
-#define desligar(pino) ((pino) = 0)
+
+#define ligar(pino)    writePin(pino, 1)
+#define desligar(pino) writePin(pino, 0)
     
 static u8 botao_atual = 0;
 static u8 sensA = 0;
@@ -57,7 +50,7 @@ volatile u8 time_flag = 0;
 volatile u8 estado_sistema = 0;
 volatile u8 estado_anterior_botao = 0;
 
-short _verificar_niveis(void);
+void _verificar_niveis(void);
 
 
 void main(void)
@@ -84,13 +77,13 @@ void main(void)
 
 
 
-short _verificar_niveis(void){
+void _verificar_niveis(void){
     
-    botao_atual = !P(B0);
-	  sensA = !P(P0);
-    sensB = !P(B1);
-    sensC = !P(B2);
-    sensD = !P(B3);
+    botao_atual = !getPin(Botao_I);
+	  sensA = !getPin(Nivel_A);
+    sensB = !getPin(Nivel_B);
+    sensC = !getPin(Nivel_C);
+    sensD = !getPin(Nivel_D);
     
     // Botao apertado e antes não apertado -> entra
     if (botao_atual && !estado_anterior_botao) {
@@ -99,15 +92,15 @@ short _verificar_niveis(void){
     
     estado_anterior_botao = botao_atual;
     erro_detectado = ((sensA && !sensB) || (sensA && !sensC) || (sensB && !sensC) || (sensC && !sensD));
-    // Verificação de Erros (A sua lógica de reg_niveis está correta, mas pode ser direta)
+    // Verificação de Erros
     if (erro_detectado) {
         desligar(Evs); 
         desligar(Eve);
-        ligar(erro_flag);
+        ligar(Flag_Erro);
         
     } else {
         
-        desligar(erro_flag);
+        desligar(Flag_Erro);
         
         if(estado_sistema){
             
@@ -132,7 +125,7 @@ short _verificar_niveis(void){
             }
         }    
     }
-    return 0;
+    return;
 }
 
 

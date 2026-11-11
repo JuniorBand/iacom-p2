@@ -5,7 +5,7 @@
 **     Processor : MC9S12C128CFU16
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:23
+**     Date/Time : 11/11/2026, 09:50
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -18,9 +18,10 @@
 **     mail      : support@freescale.com
 ** ###################################################################*/
 #include "Cpu.h"
+#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
-#include "Botao_SW1.h"
+#include "Timer_1.h"
 #include "EInt1.h"
 
 /* ISR prototype */
@@ -36,7 +37,7 @@ static const tIsrFunc _InterruptVectorTable[] @0xFF80U = { /* Interrupt vector t
   &Cpu_Interrupt,                      /* 0x3B  0xFF88   1  ivVReserved59 unused by PE */
   &Cpu_Interrupt,                      /* 0x3A  0xFF8A   1  ivVvreglvi    unused by PE */
   &Cpu_Interrupt,                      /* 0x39  0xFF8C   1  ivVpwmesdn    unused by PE */
-  &EInt1_Interrupt,                    /* 0x38  0xFF8E   1  ivVportp      used by PE */
+  &EInt1_Interrupt,                    /* 0x38  0xFF8E   0  ivVportp      used by PE */
   &Cpu_Interrupt,                      /* 0x37  0xFF90   1  ivVReserved55 unused by PE */
   &Cpu_Interrupt,                      /* 0x36  0xFF92   1  ivVReserved54 unused by PE */
   &Cpu_Interrupt,                      /* 0x35  0xFF94   1  ivVReserved53 unused by PE */
@@ -84,7 +85,7 @@ static const tIsrFunc _InterruptVectorTable[] @0xFF80U = { /* Interrupt vector t
   &Cpu_Interrupt,                      /* 0x0B  0xFFE8   1  ivVtimch3     unused by PE */
   &Cpu_Interrupt,                      /* 0x0A  0xFFEA   1  ivVtimch2     unused by PE */
   &Cpu_Interrupt,                      /* 0x09  0xFFEC   1  ivVtimch1     unused by PE */
-  &Cpu_Interrupt,                      /* 0x08  0xFFEE   1  ivVtimch0     unused by PE */
+  &Timer_1_Interrupt,                  /* 0x08  0xFFEE   1  ivVtimch0     used by PE */
   &Cpu_Interrupt,                      /* 0x07  0xFFF0   1  ivVrti        unused by PE */
   &Cpu_Interrupt,                      /* 0x06  0xFFF2   1  ivVirq        unused by PE */
   &Cpu_Interrupt,                      /* 0x05  0xFFF4   -  ivVxirq       unused by PE */

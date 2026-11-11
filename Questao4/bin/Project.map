@@ -1,5 +1,5 @@
 
-PROGRAM "D:\Projetos\CodeWarrior\Questao4\bin\Project.abs"
+PROGRAM "D:\Projetos\CodeWarrior\IACOM\Questao4\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -13,6 +13,7 @@ Linker      : SmartLinker V-5.0.52 Build 15249, Sep  7 2015
 FILE SECTION
 ---------------------------------------------------------------------------------------------
 Start12.c.o                             Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+rtshc12.c.o (ansib.lib)                 Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 Cpu.c.o                                 Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 IO_Map.c.o                              Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 Vectors.c.o                             Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
@@ -20,7 +21,9 @@ Events.c.o                              Model: BANKED,        Lang: ANSI-C,     
 Questao4.c.o                            Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 PWM_1.c.o                               Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 PWM_2.c.o                               Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+Timer_1.c.o                             Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 EInt1.c.o                               Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
+PE_Timer.c.o                            Model: BANKED,        Lang: ANSI-C,        Compiler Version: ANSI-C/cC++ Compiler for HC12 V-5.0.46 Build 15249, Sep  7 2015
 
 *********************************************************************************************
 STARTUP SECTION
@@ -29,8 +32,8 @@ Entry point: 0xC002 (_EntryPoint)
 _startupData is allocated at 0xC01A and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x3000     5
-  _Copy    *toCopyDownBeg 0xC039
+  _Range   pZeroOut       0x3000     8
+  _Copy    *toCopyDownBeg 0xC05B
 } _startupData;
 
 *********************************************************************************************
@@ -39,9 +42,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             26     R     0xC000     0xC019   ROM_C000
 .startData                        10     R     0xC01A     0xC023   ROM_C000
-NON_BANKED                        21     R     0xC024     0xC038   ROM_C000
-.copy                              2     R     0xC039     0xC03A   ROM_C000
-.text                            143     R   0x3DB000   0x3DB08E   PAGE_3D_B000
+NON_BANKED                        55     R     0xC024     0xC05A   ROM_C000
+.copy                              2     R     0xC05B     0xC05C   ROM_C000
+.text                            530     R   0x3DB000   0x3DB211   PAGE_3D_B000
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -264,16 +267,18 @@ NON_BANKED                        21     R     0xC024     0xC038   ROM_C000
 .abs_section_16e                   2   N/I      0x16E      0x16F   .absSeg219
 .abs_section_17e                   2   N/I      0x17E      0x17F   .absSeg220
 .abs_section_ff80                128     R     0xFF80     0xFFFF   .absSeg221
-.common                            1   R/W     0x3000     0x3000   RAM
-PWM_1_CODE                        36     R   0x3DB08F   0x3DB0B2   PAGE_3D_B000
-PWM_2_CODE                        26     R   0x3DB0B3   0x3DB0CC   PAGE_3D_B000
-PWM_1_DATA                         2   R/W     0x3001     0x3002   RAM
-PWM_2_DATA                         2   R/W     0x3003     0x3004   RAM
-.stack                           128   R/W     0x3005     0x3084   RAM
+.bss                               4   R/W     0x3000     0x3003   RAM
+PWM_1_CODE                       135     R   0x3DB212   0x3DB298   PAGE_3D_B000
+PWM_2_CODE                       125     R   0x3DB299   0x3DB315   PAGE_3D_B000
+Timer_1_CODE                      14     R   0x3DB316   0x3DB323   PAGE_3D_B000
+EInt1_CODE                        10     R   0x3DB324   0x3DB32D   PAGE_3D_B000
+PWM_1_DATA                         2   R/W     0x3004     0x3005   RAM
+PWM_2_DATA                         2   R/W     0x3006     0x3007   RAM
+.stack                           128   R/W     0x3008     0x3087   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         188 (dec:      392)
-READ_WRITE (R/W):       85 (dec:      133)
+READ_ONLY (R):         40B (dec:     1035)
+READ_WRITE (R/W):       88 (dec:      136)
 NO_INIT (N/I):         104 (dec:      260)
 
 *********************************************************************************************
@@ -292,14 +297,17 @@ MODULE:                 -- Start12.c.o --
 - VARIABLES:
      _startupData                              C01A       6       6       3   .startData  
 - LABELS:
-     __SEG_END_SSTACK                          3085       0       0       1               
+     __SEG_END_SSTACK                          3088       0       0       1               
+MODULE:                 -- rtshc12.c.o (ansib.lib) --
+- PROCEDURES:
+     _LCMP                                     C02F      19      25       2   NON_BANKED  
+- VARIABLES:
 MODULE:                 -- Cpu.c.o --
 - PROCEDURES:
-     PE_low_level_init                       3DB029      5F      95       2   .text       
-     Cpu_Interrupt                             C000       2       2      60   .init       
+     PE_low_level_init                       3DB029      9D     157       2   .text       
+     Cpu_Interrupt                             C000       2       2      59   .init       
      _EntryPoint                               C002      18      24       3   .init       
 - VARIABLES:
-     Shadow_P                                  3000       1       1       1   .common     
 MODULE:                 -- IO_Map.c.o --
 - PROCEDURES:
 - VARIABLES:
@@ -319,7 +327,7 @@ MODULE:                 -- IO_Map.c.o --
      _MEMSIZ0                                    1C       1       1       0   .abs_section_1c
      _MEMSIZ1                                    1D       1       1       0   .abs_section_1d
      _INTCR                                      1E       1       1       1   .abs_section_1e
-     _HPRIO                                      1F       1       1       0   .abs_section_1f
+     _HPRIO                                      1F       1       1       2   .abs_section_1f
      _DBGC1                                      20       1       1       0   .abs_section_20
      _DBGSC                                      21       1       1       0   .abs_section_21
      _DBGCNT                                     24       1       1       0   .abs_section_24
@@ -338,21 +346,21 @@ MODULE:                 -- IO_Map.c.o --
      _RTICTL                                     3B       1       1       0   .abs_section_3b
      _COPCTL                                     3C       1       1       0   .abs_section_3c
      _ARMCOP                                     3F       1       1       0   .abs_section_3f
-     _TIOS                                       40       1       1       0   .abs_section_40
+     _TIOS                                       40       1       1       1   .abs_section_40
      _CFORC                                      41       1       1       0   .abs_section_41
-     _OC7M                                       42       1       1       0   .abs_section_42
+     _OC7M                                       42       1       1       1   .abs_section_42
      _OC7D                                       43       1       1       0   .abs_section_43
-     _TSCR1                                      46       1       1       0   .abs_section_46
-     _TTOV                                       47       1       1       0   .abs_section_47
-     _TCTL1                                      48       1       1       0   .abs_section_48
-     _TCTL2                                      49       1       1       0   .abs_section_49
+     _TSCR1                                      46       1       1       2   .abs_section_46
+     _TTOV                                       47       1       1       1   .abs_section_47
+     _TCTL1                                      48       1       1       1   .abs_section_48
+     _TCTL2                                      49       1       1       1   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       0   .abs_section_4b
-     _TIE                                        4C       1       1       0   .abs_section_4c
-     _TSCR2                                      4D       1       1       0   .abs_section_4d
-     _TFLG1                                      4E       1       1       0   .abs_section_4e
+     _TIE                                        4C       1       1       3   .abs_section_4c
+     _TSCR2                                      4D       1       1       2   .abs_section_4d
+     _TFLG1                                      4E       1       1       3   .abs_section_4e
      _TFLG2                                      4F       1       1       0   .abs_section_4f
-     _PACTL                                      60       1       1       0   .abs_section_60
+     _PACTL                                      60       1       1       1   .abs_section_60
      _PAFLG                                      61       1       1       0   .abs_section_61
      _ATDSTAT0                                   86       1       1       0   .abs_section_86
      _ATDTEST1                                   89       1       1       0   .abs_section_89
@@ -442,13 +450,13 @@ MODULE:                 -- IO_Map.c.o --
      _CANTXDSR7                                 17B       1       1       0   .abs_section_17b
      _CANTXDLR                                  17C       1       1       0   .abs_section_17c
      _CANTXTBPR                                 17D       1       1       0   .abs_section_17d
-     _PTT                                       240       1       1       0   .abs_section_240
+     _PTT                                       240       1       1       1   .abs_section_240
      _PTIT                                      241       1       1       0   .abs_section_241
-     _DDRT                                      242       1       1       0   .abs_section_242
+     _DDRT                                      242       1       1       1   .abs_section_242
      _RDRT                                      243       1       1       1   .abs_section_243
      _PERT                                      244       1       1       0   .abs_section_244
      _PPST                                      245       1       1       0   .abs_section_245
-     _MODRR                                     247       1       1       0   .abs_section_247
+     _MODRR                                     247       1       1       1   .abs_section_247
      _PTS                                       248       1       1       0   .abs_section_248
      _PTIS                                      249       1       1       0   .abs_section_249
      _DDRS                                      24A       1       1       0   .abs_section_24a
@@ -463,14 +471,14 @@ MODULE:                 -- IO_Map.c.o --
      _PERM                                      254       1       1       0   .abs_section_254
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
-     _PTP                                       258       1       1       1   .abs_section_258
+     _PTP                                       258       1       1       2   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       2   .abs_section_25a
      _RDRP                                      25B       1       1       1   .abs_section_25b
      _PERP                                      25C       1       1       1   .abs_section_25c
      _PPSP                                      25D       1       1       1   .abs_section_25d
-     _PIEP                                      25E       1       1       2   .abs_section_25e
-     _PIFP                                      25F       1       1       2   .abs_section_25f
+     _PIEP                                      25E       1       1       3   .abs_section_25e
+     _PIFP                                      25F       1       1       3   .abs_section_25f
      _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
      _DDRJ                                      26A       1       1       0   .abs_section_26a
@@ -493,14 +501,14 @@ MODULE:                 -- IO_Map.c.o --
      _DBGCA                                      2B       2       2       0   .abs_section_2b
      _DBGCB                                      2E       2       2       0   .abs_section_2e
      _TCNT                                       44       2       2       0   .abs_section_44
-     _TC0                                        50       2       2       0   .abs_section_50
+     _TC0                                        50       2       2       1   .abs_section_50
      _TC1                                        52       2       2       0   .abs_section_52
      _TC2                                        54       2       2       0   .abs_section_54
      _TC3                                        56       2       2       0   .abs_section_56
      _TC4                                        58       2       2       0   .abs_section_58
      _TC5                                        5A       2       2       0   .abs_section_5a
      _TC6                                        5C       2       2       0   .abs_section_5c
-     _TC7                                        5E       2       2       0   .abs_section_5e
+     _TC7                                        5E       2       2       1   .abs_section_5e
      _PACNT                                      62       2       2       0   .abs_section_62
      _ATDCTL23                                   82       2       2       0   .abs_section_82
      _ATDCTL45                                   84       2       2       0   .abs_section_84
@@ -519,7 +527,7 @@ MODULE:                 -- IO_Map.c.o --
      _PWMPER01                                   F2       2       2       2   .abs_section_f2
      _PWMPER23                                   F4       2       2       0   .abs_section_f4
      _PWMPER45                                   F6       2       2       0   .abs_section_f6
-     _PWMDTY01                                   F8       2       2       2   .abs_section_f8
+     _PWMDTY01                                   F8       2       2       4   .abs_section_f8
      _PWMDTY23                                   FA       2       2       0   .abs_section_fa
      _PWMDTY45                                   FC       2       2       0   .abs_section_fc
      _CANRXTSR                                  16E       2       2       0   .abs_section_16e
@@ -530,25 +538,48 @@ MODULE:                 -- Vectors.c.o --
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
 MODULE:                 -- Events.c.o --
 - PROCEDURES:
-     EInt1_OnInterrupt                       3DB088       1       1       2   .text       
+     EInt1_OnInterrupt                       3DB0C6      30      48       2   .text       
+     Timer_1_OnInterrupt                     3DB0F6      1C      28       2   .text       
 - VARIABLES:
 MODULE:                 -- Questao4.c.o --
 - PROCEDURES:
-     main                                    3DB089       6       6       2   .text       
+     main                                    3DB112      1A      26       2   .text       
 - VARIABLES:
+     duty_value_ms_1                           3000       2       2       4   .bss        
+     duty_value_ms_2                           3002       2       2       5   .bss        
 MODULE:                 -- PWM_1.c.o --
 - PROCEDURES:
-     PWM_1_Init                              3DB08F      24      36       2   PWM_1_CODE  
+     HWEnDi                                  3DB212       4       4       4   PWM_1_CODE  
+     SetRatio                                3DB216      11      17       2   PWM_1_CODE  
+     PWM_1_Enable                            3DB227       6       6       2   PWM_1_CODE  
+     PWM_1_SetDutyMS                         3DB22D      47      71       2   PWM_1_CODE  
+     PWM_1_Init                              3DB274      25      37       2   PWM_1_CODE  
 - VARIABLES:
-     RatioStore                                3001       2       2       1   PWM_1_DATA  
+     RatioStore                                3004       2       2       4   PWM_1_DATA  
 MODULE:                 -- PWM_2.c.o --
 - PROCEDURES:
-     PWM_2_Init                              3DB0B3      1A      26       2   PWM_2_CODE  
+     HWEnDi                                  3DB299       4       4       4   PWM_2_CODE  
+     SetRatio                                3DB29D      11      17       2   PWM_2_CODE  
+     PWM_2_Enable                            3DB2AE       6       6       2   PWM_2_CODE  
+     PWM_2_SetDutyMS                         3DB2B4      47      71       2   PWM_2_CODE  
+     PWM_2_Init                              3DB2FB      1B      27       2   PWM_2_CODE  
 - VARIABLES:
-     RatioStore                                3003       2       2       1   PWM_2_DATA  
+     RatioStore                                3006       2       2       4   PWM_2_DATA  
+MODULE:                 -- Timer_1.c.o --
+- PROCEDURES:
+     Timer_1_Interrupt                         C048       9       9       1   NON_BANKED  
+     Timer_1_Enable                          3DB316       2       2       2   Timer_1_CODE
+     Timer_1_EnableEvent                     3DB318       C      12       2   Timer_1_CODE
+- VARIABLES:
 MODULE:                 -- EInt1.c.o --
 - PROCEDURES:
-     EInt1_Interrupt                           C02F       A      10       1   NON_BANKED  
+     EInt1_Interrupt                           C051       A      10       1   NON_BANKED  
+     EInt1_Enable                            3DB324       A      10       2   EInt1_CODE  
+- VARIABLES:
+MODULE:                 -- PE_Timer.c.o --
+- PROCEDURES:
+     PE_Timer_LngMul                         3DB12C      6C     108       4   .text       
+     PE_Timer_LngHi3                         3DB198      7A     122       4   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -556,31 +587,39 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   Start12.c.o                                  0     52      0
-  Cpu.c.o                                      1    121      0
+  rtshc12.c.o (ansib.lib)                      0     25      0
+  Cpu.c.o                                      0    183      0
   IO_Map.c.o                                 260      0      0
   Vectors.c.o                                  0      0    128
-  Events.c.o                                   0      1      0
-  Questao4.c.o                                 0      6      0
-  PWM_1.c.o                                    2     36      0
-  PWM_2.c.o                                    2     26      0
-  EInt1.c.o                                    0     10      0
+  Events.c.o                                   0     76      0
+  Questao4.c.o                                 4     26      0
+  PWM_1.c.o                                    2    135      0
+  PWM_2.c.o                                    2    125      0
+  Timer_1.c.o                                  0     23      0
+  EInt1.c.o                                    0     20      0
+  PE_Timer.c.o                                 0    230      0
   other                                      128     10      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  Init PE_low_level_init EInt1_OnInterrupt main 
+  Init PE_low_level_init EInt1_OnInterrupt Timer_1_OnInterrupt main 
+  PE_Timer_LngMul PE_Timer_LngHi3 
+SECTION: ".bss"
+  duty_value_ms_1 duty_value_ms_2 
 SECTION: ".init"
   Cpu_Interrupt _EntryPoint 
 SECTION: "NON_BANKED"
-  _Startup EInt1_Interrupt 
-SECTION: ".common"
-  Shadow_P 
+  _Startup _LCMP Timer_1_Interrupt EInt1_Interrupt 
 SECTION: "PWM_1_CODE"
-  PWM_1_Init 
+  HWEnDi SetRatio PWM_1_Enable PWM_1_SetDutyMS PWM_1_Init 
 SECTION: "PWM_2_CODE"
-  PWM_2_Init 
+  HWEnDi SetRatio PWM_2_Enable PWM_2_SetDutyMS PWM_2_Init 
+SECTION: "Timer_1_CODE"
+  Timer_1_Enable Timer_1_EnableEvent 
+SECTION: "EInt1_CODE"
+  EInt1_Enable 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1053,7 +1092,7 @@ OBJECT LIST SORTED BY ADDRESS
      _MEMSIZ0                                    1C       1       1       0   .abs_section_1c
      _MEMSIZ1                                    1D       1       1       0   .abs_section_1d
      _INTCR                                      1E       1       1       1   .abs_section_1e
-     _HPRIO                                      1F       1       1       0   .abs_section_1f
+     _HPRIO                                      1F       1       1       2   .abs_section_1f
      _DBGC1                                      20       1       1       0   .abs_section_20
      _DBGSC                                      21       1       1       0   .abs_section_21
      _DBGTB                                      22       2       2       0   .abs_section_22
@@ -1076,30 +1115,30 @@ OBJECT LIST SORTED BY ADDRESS
      _RTICTL                                     3B       1       1       0   .abs_section_3b
      _COPCTL                                     3C       1       1       0   .abs_section_3c
      _ARMCOP                                     3F       1       1       0   .abs_section_3f
-     _TIOS                                       40       1       1       0   .abs_section_40
+     _TIOS                                       40       1       1       1   .abs_section_40
      _CFORC                                      41       1       1       0   .abs_section_41
-     _OC7M                                       42       1       1       0   .abs_section_42
+     _OC7M                                       42       1       1       1   .abs_section_42
      _OC7D                                       43       1       1       0   .abs_section_43
      _TCNT                                       44       2       2       0   .abs_section_44
-     _TSCR1                                      46       1       1       0   .abs_section_46
-     _TTOV                                       47       1       1       0   .abs_section_47
-     _TCTL1                                      48       1       1       0   .abs_section_48
-     _TCTL2                                      49       1       1       0   .abs_section_49
+     _TSCR1                                      46       1       1       2   .abs_section_46
+     _TTOV                                       47       1       1       1   .abs_section_47
+     _TCTL1                                      48       1       1       1   .abs_section_48
+     _TCTL2                                      49       1       1       1   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       0   .abs_section_4b
-     _TIE                                        4C       1       1       0   .abs_section_4c
-     _TSCR2                                      4D       1       1       0   .abs_section_4d
-     _TFLG1                                      4E       1       1       0   .abs_section_4e
+     _TIE                                        4C       1       1       3   .abs_section_4c
+     _TSCR2                                      4D       1       1       2   .abs_section_4d
+     _TFLG1                                      4E       1       1       3   .abs_section_4e
      _TFLG2                                      4F       1       1       0   .abs_section_4f
-     _TC0                                        50       2       2       0   .abs_section_50
+     _TC0                                        50       2       2       1   .abs_section_50
      _TC1                                        52       2       2       0   .abs_section_52
      _TC2                                        54       2       2       0   .abs_section_54
      _TC3                                        56       2       2       0   .abs_section_56
      _TC4                                        58       2       2       0   .abs_section_58
      _TC5                                        5A       2       2       0   .abs_section_5a
      _TC6                                        5C       2       2       0   .abs_section_5c
-     _TC7                                        5E       2       2       0   .abs_section_5e
-     _PACTL                                      60       1       1       0   .abs_section_60
+     _TC7                                        5E       2       2       1   .abs_section_5e
+     _PACTL                                      60       1       1       1   .abs_section_60
      _PAFLG                                      61       1       1       0   .abs_section_61
      _PACNT                                      62       2       2       0   .abs_section_62
      _ATDCTL23                                   82       2       2       0   .abs_section_82
@@ -1143,7 +1182,7 @@ OBJECT LIST SORTED BY ADDRESS
      _PWMPER01                                   F2       2       2       2   .abs_section_f2
      _PWMPER23                                   F4       2       2       0   .abs_section_f4
      _PWMPER45                                   F6       2       2       0   .abs_section_f6
-     _PWMDTY01                                   F8       2       2       2   .abs_section_f8
+     _PWMDTY01                                   F8       2       2       4   .abs_section_f8
      _PWMDTY23                                   FA       2       2       0   .abs_section_fa
      _PWMDTY45                                   FC       2       2       0   .abs_section_fc
      _PWMSDN                                     FE       1       1       2   .abs_section_fe
@@ -1212,13 +1251,13 @@ OBJECT LIST SORTED BY ADDRESS
      _CANTXDLR                                  17C       1       1       0   .abs_section_17c
      _CANTXTBPR                                 17D       1       1       0   .abs_section_17d
      _CANTXTSR                                  17E       2       2       0   .abs_section_17e
-     _PTT                                       240       1       1       0   .abs_section_240
+     _PTT                                       240       1       1       1   .abs_section_240
      _PTIT                                      241       1       1       0   .abs_section_241
-     _DDRT                                      242       1       1       0   .abs_section_242
+     _DDRT                                      242       1       1       1   .abs_section_242
      _RDRT                                      243       1       1       1   .abs_section_243
      _PERT                                      244       1       1       0   .abs_section_244
      _PPST                                      245       1       1       0   .abs_section_245
-     _MODRR                                     247       1       1       0   .abs_section_247
+     _MODRR                                     247       1       1       1   .abs_section_247
      _PTS                                       248       1       1       0   .abs_section_248
      _PTIS                                      249       1       1       0   .abs_section_249
      _DDRS                                      24A       1       1       0   .abs_section_24a
@@ -1233,14 +1272,14 @@ OBJECT LIST SORTED BY ADDRESS
      _PERM                                      254       1       1       0   .abs_section_254
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
-     _PTP                                       258       1       1       1   .abs_section_258
+     _PTP                                       258       1       1       2   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
      _DDRP                                      25A       1       1       2   .abs_section_25a
      _RDRP                                      25B       1       1       1   .abs_section_25b
      _PERP                                      25C       1       1       1   .abs_section_25c
      _PPSP                                      25D       1       1       1   .abs_section_25d
-     _PIEP                                      25E       1       1       2   .abs_section_25e
-     _PIFP                                      25F       1       1       2   .abs_section_25f
+     _PIEP                                      25E       1       1       3   .abs_section_25e
+     _PIFP                                      25F       1       1       3   .abs_section_25f
      _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
      _DDRJ                                      26A       1       1       0   .abs_section_26a
@@ -1255,37 +1294,65 @@ OBJECT LIST SORTED BY ADDRESS
      _RDRAD                                     273       1       1       1   .abs_section_273
      _PERAD                                     274       1       1       0   .abs_section_274
      _PPSAD                                     275       1       1       0   .abs_section_275
-     Shadow_P                                  3000       1       1       1   .common     
-     RatioStore                                3001       2       2       1   PWM_1_DATA  
-     RatioStore                                3003       2       2       1   PWM_2_DATA  
-     Cpu_Interrupt                             C000       2       2      60   .init       
+     duty_value_ms_1                           3000       2       2       4   .bss        
+     duty_value_ms_2                           3002       2       2       5   .bss        
+     RatioStore                                3004       2       2       4   PWM_1_DATA  
+     RatioStore                                3006       2       2       4   PWM_2_DATA  
+     Cpu_Interrupt                             C000       2       2      59   .init       
      _EntryPoint                               C002      18      24       3   .init       
      _Startup                                  C024       B      11       1   NON_BANKED  
-     EInt1_Interrupt                           C02F       A      10       1   NON_BANKED  
+     _LCMP                                     C02F      19      25       2   NON_BANKED  
+     Timer_1_Interrupt                         C048       9       9       1   NON_BANKED  
+     EInt1_Interrupt                           C051       A      10       1   NON_BANKED  
      _InterruptVectorTable                     FF80      80     128       0   .abs_section_ff80
      Init                                    3DB000      29      41       2   .text       
-     PE_low_level_init                       3DB029      5F      95       2   .text       
-     EInt1_OnInterrupt                       3DB088       1       1       2   .text       
-     main                                    3DB089       6       6       2   .text       
-     PWM_1_Init                              3DB08F      24      36       2   PWM_1_CODE  
-     PWM_2_Init                              3DB0B3      1A      26       2   PWM_2_CODE  
+     PE_low_level_init                       3DB029      9D     157       2   .text       
+     EInt1_OnInterrupt                       3DB0C6      30      48       2   .text       
+     Timer_1_OnInterrupt                     3DB0F6      1C      28       2   .text       
+     main                                    3DB112      1A      26       2   .text       
+     PE_Timer_LngMul                         3DB12C      6C     108       4   .text       
+     PE_Timer_LngHi3                         3DB198      7A     122       4   .text       
+     HWEnDi                                  3DB212       4       4       4   PWM_1_CODE  
+     SetRatio                                3DB216      11      17       2   PWM_1_CODE  
+     PWM_1_Enable                            3DB227       6       6       2   PWM_1_CODE  
+     PWM_1_SetDutyMS                         3DB22D      47      71       2   PWM_1_CODE  
+     PWM_1_Init                              3DB274      25      37       2   PWM_1_CODE  
+     HWEnDi                                  3DB299       4       4       4   PWM_2_CODE  
+     SetRatio                                3DB29D      11      17       2   PWM_2_CODE  
+     PWM_2_Enable                            3DB2AE       6       6       2   PWM_2_CODE  
+     PWM_2_SetDutyMS                         3DB2B4      47      71       2   PWM_2_CODE  
+     PWM_2_Init                              3DB2FB      1B      27       2   PWM_2_CODE  
+     Timer_1_Enable                          3DB316       2       2       2   Timer_1_CODE
+     Timer_1_EnableEvent                     3DB318       C      12       2   Timer_1_CODE
+     EInt1_Enable                            3DB324       A      10       2   EInt1_CODE  
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+rtshc12.c.o (ansib.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
+  _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP_P _LCMP_PP _LNEG _LCOM _LINC _LDEC 
+  _LMUL _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _NEG_P _LDIVS _LMODU _LMODS 
+  _ILSEXT _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED _CASE_CHECKED_BYTE 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP 
 PWM_1.c.o:
-  SetRatio PWM_1_SetRatio16 PWM_1_SetDutyUS PWM_1_SetDutyMS 
+  PWM_1_SetRatio16 PWM_1_SetDutyUS 
 PWM_2.c.o:
-  SetRatio PWM_2_SetRatio16 PWM_2_SetDutyUS PWM_2_SetDutyMS 
+  PWM_2_SetRatio16 PWM_2_SetDutyUS 
+PE_Timer.c.o:
+  PE_Timer_LngHi4 
 NOT USED VARIABLES
+rtshc12.c.o (ansib.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 Cpu.c.o:
   CCR_reg 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC039 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC05B ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1294,18 +1361,38 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _EntryPoint               USES _INITRM _MISC _PEAR _CLKSEL _PLLCTL _Startup 
 _Startup                  USES __SEG_END_SSTACK Init main 
+Timer_1_Interrupt         USES _TFLG1 Timer_1_OnInterrupt 
 EInt1_Interrupt           USES _PIFP EInt1_OnInterrupt 
-_InterruptVectorTable     USES Cpu_Interrupt EInt1_Interrupt _EntryPoint 
+_InterruptVectorTable     USES Cpu_Interrupt EInt1_Interrupt Timer_1_Interrupt 
+                                _EntryPoint 
 Init                      USES _startupData 
-PE_low_level_init         USES _PWME _PWMCTL _PWMCAE _PWMPOL _PIEP _PTP _DDRP 
-                                _PPSP _PERP _CRGINT _VREGCTRL _RDRIV _RDRAD _RDRJ 
-                                _RDRM _RDRP _RDRS _RDRT _INTCR PWM_1_Init PWM_2_Init 
-                                Shadow_P _PIFP 
-main                      USES PE_low_level_init 
+PE_low_level_init         USES _HPRIO _PIEP _PPSP _PERP _PTP _DDRP _PWME 
+                                _MODRR _PWMCTL _PWMCAE _PWMPOL _PTT _DDRT _TSCR1 
+                                _PACTL _OC7M _TIOS _TCTL2 _TTOV _TCTL1 _TSCR2 _TFLG1 
+                                _TIE _CRGINT _VREGCTRL _RDRIV _RDRAD _RDRJ _RDRM 
+                                _RDRP _RDRS _RDRT _INTCR PWM_1_Init PWM_2_Init _TC0 
+                                _TC7 _PIFP 
+EInt1_OnInterrupt         USES _PTP duty_value_ms_2 PWM_2_SetDutyMS 
+Timer_1_OnInterrupt       USES duty_value_ms_1 PWM_1_SetDutyMS 
+main                      USES PE_low_level_init PWM_1_Enable PWM_2_Enable 
+                                EInt1_Enable Timer_1_Enable Timer_1_EnableEvent 
+PE_Timer_LngHi3           USES _LCMP 
+HWEnDi                    USES _PWME 
+SetRatio                  USES RatioStore _PWMDTY01 
+PWM_1_Enable              USES HWEnDi 
+PWM_1_SetDutyMS           USES PE_Timer_LngMul RatioStore PE_Timer_LngHi3 
+                                SetRatio 
 PWM_1_Init                USES _PWMCNT01 _PWMSDN RatioStore _PWMDTY01 
-                                _PWMPER01 _PWMPRCLK _PWMSCLA _PWMCLK _PWME 
+                                _PWMPER01 _PWMPRCLK _PWMSCLA _PWMCLK HWEnDi 
+HWEnDi                    USES _PWME 
+SetRatio                  USES RatioStore _PWMDTY01 
+PWM_2_Enable              USES HWEnDi 
+PWM_2_SetDutyMS           USES PE_Timer_LngMul RatioStore PE_Timer_LngHi3 
+                                SetRatio 
 PWM_2_Init                USES _PWMCNT01 _PWMSDN RatioStore _PWMDTY01 
-                                _PWMPER01 _PWMCLK _PWME 
+                                _PWMPER01 _PWMCLK HWEnDi 
+Timer_1_EnableEvent       USES _TIE _TFLG1 
+EInt1_Enable              USES _PIFP _PIEP 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1315,11 +1402,29 @@ DEPENDENCY TREE
  +- main                
  |  | 
  |  +- PE_low_level_init   
- |     | 
- |     +- PWM_1_Init          
- |     |    
- |     +- PWM_2_Init          
- |          
+ |  |  | 
+ |  |  +- PWM_1_Init          
+ |  |  |  | 
+ |  |  |  +- HWEnDi              
+ |  |  |       
+ |  |  +- PWM_2_Init          
+ |  |     | 
+ |  |     +- HWEnDi              
+ |  |          
+ |  +- PWM_1_Enable        
+ |  |  | 
+ |  |  +- HWEnDi               (see above)
+ |  |     
+ |  +- PWM_2_Enable        
+ |  |  | 
+ |  |  +- HWEnDi               (see above)
+ |  |     
+ |  +- EInt1_Enable        
+ |  |    
+ |  +- Timer_1_Enable      
+ |  |    
+ |  +- Timer_1_EnableEvent 
+ |       
  +- _EntryPoint         
     | 
     +- _Startup            
@@ -1335,7 +1440,29 @@ DEPENDENCY TREE
  +- EInt1_Interrupt     
  |  | 
  |  +- EInt1_OnInterrupt   
- |       
+ |     | 
+ |     +- PWM_2_SetDutyMS     
+ |        | 
+ |        +- PE_Timer_LngMul     
+ |        |    
+ |        +- PE_Timer_LngHi3     
+ |        |  | 
+ |        |  +- _LCMP               
+ |        |       
+ |        +- SetRatio            
+ |             
+ +- Timer_1_Interrupt   
+ |  | 
+ |  +- Timer_1_OnInterrupt 
+ |     | 
+ |     +- PWM_1_SetDutyMS     
+ |        | 
+ |        +- PE_Timer_LngMul      (see above)
+ |        |  
+ |        +- PE_Timer_LngHi3      (see above)
+ |        |  
+ |        +- SetRatio            
+ |             
  +- _EntryPoint          (see above)
     
 *********************************************************************************************
@@ -1344,6 +1471,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 392
+Number of blocks to be downloaded: 10
+Total size of all blocks to be downloaded: 1035
 

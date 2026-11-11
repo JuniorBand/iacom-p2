@@ -23,6 +23,9 @@
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
+#include "PortT.h"
+#include "PortB.h"
+#include "PortA.h"
 
 #pragma CODE_SEG DEFAULT
 

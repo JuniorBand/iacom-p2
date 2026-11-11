@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 22:30
+**     Date/Time : 11/11/2026, 08:53
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -27,18 +27,18 @@
 
 /* MODULE Cpu. */
 
-#include "B0.h"
-#include "P0.h"
-#include "B1.h"
-#include "B2.h"
-#include "B3.h"
-#include "B4.h"
-#include "B5.h"
-#include "B7.h"
+#include "Botao_I.h"
+#include "Nivel_A.h"
+#include "Nivel_B.h"
+#include "Nivel_C.h"
+#include "Nivel_D.h"
+#include "Evs.h"
+#include "Eve.h"
+#include "Flag_Erro.h"
 #include "Events.h"
 #include "Cpu.h"
 
-#define CGM_DELAY  0x03FFU
+#define CGM_DELAY  0xFFU
 
 #pragma DATA_SEG DEFAULT               /* Select data segment "DEFAULT" */
 #pragma CODE_SEG DEFAULT
@@ -46,10 +46,6 @@
 
 /* Global variables */
 volatile byte CCR_reg;                 /* Current CCR reegister */
-
-/*Definition of global shadow variables*/
-byte Shadow_P;
-
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
 
 
@@ -210,14 +206,20 @@ void _EntryPoint(void)
 void PE_low_level_init(void)
 {
   /* Common initialization of the CPU registers */
-  /* PIEP: PIEP3=0,PIEP2=0,PIEP1=0 */
-  clrReg8Bits(PIEP, 0x0EU);             
-  /* PTP: PTP3=0,PTP2=0,PTP1=0 */
-  clrReg8Bits(PTP, 0x0EU);              
-  /* PERP: PERP3=0,PERP2=0,PERP1=0 */
-  clrReg8Bits(PERP, 0x0EU);             
-  /* DDRP: DDRP3=1,DDRP2=1,DDRP1=1 */
-  setReg8Bits(DDRP, 0x0EU);             
+  /* PUCR: PUPBE=1 */
+  setReg8Bits(PUCR, 0x02U);             
+  /* PORTB: BIT7=0,BIT5=0,BIT4=0 */
+  clrReg8Bits(PORTB, 0xB0U);            
+  /* DDRB: BIT7=1,BIT5=1,BIT4=1,BIT3=0,BIT2=0,BIT1=0,BIT0=0 */
+  clrSetReg8Bits(DDRB, 0x0FU, 0xB0U);   
+  /* PIEP: PIEP0=0 */
+  clrReg8Bits(PIEP, 0x01U);             
+  /* PPSP: PPSP0=0 */
+  clrReg8Bits(PPSP, 0x01U);             
+  /* PERP: PERP0=1 */
+  setReg8Bits(PERP, 0x01U);             
+  /* DDRP: DDRP0=0 */
+  clrReg8Bits(DDRP, 0x01U);             
   /* CRGINT: LOCKIE=0,SCMIE=0 */
   clrReg8Bits(CRGINT, 0x12U);           
   /* VREGCTRL: LVIE=0 */
@@ -239,17 +241,14 @@ void PE_low_level_init(void)
   /* INTCR: IRQEN=0 */
   clrReg8Bits(INTCR, 0x40U);            
   /* ### MC9S12C32_80 "Cpu" init code ... */
-  /* ### InputPin "B0" init code ... */
-  /* ### InputPin "P0" init code ... */
-  /* ### InputPin "B1" init code ... */
-  /* ### InputPin "B2" init code ... */
-  /* ### InputPin "B3" init code ... */
-  /* ### BitIO "B4" init code ... */
-  Shadow_P &= 0xF7U;                   /* Initialize pin shadow variable bit */
-  /* ### BitIO "B5" init code ... */
-  Shadow_P &= 0xFBU;                   /* Initialize pin shadow variable bit */
-  /* ### BitIO "B7" init code ... */
-  Shadow_P &= 0xFDU;                   /* Initialize pin shadow variable bit */
+  /* ### BitIO "Botao_I" init code ... */
+  /* ### BitIO "Nivel_A" init code ... */
+  /* ### BitIO "Nivel_B" init code ... */
+  /* ### BitIO "Nivel_C" init code ... */
+  /* ### BitIO "Nivel_D" init code ... */
+  /* ### BitIO "Evs" init code ... */
+  /* ### BitIO "Eve" init code ... */
+  /* ### BitIO "Flag_Erro" init code ... */
   __EI();                              /* Enable interrupts */
 }
 

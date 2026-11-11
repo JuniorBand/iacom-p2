@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:21
+**     Date/Time : 11/11/2026, 09:41
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -58,10 +58,6 @@
 /* Global variables */
 
 extern volatile byte CCR_reg;          /* Current CCR reegister */
-/*Shadow variables*/
-
-extern byte Shadow_P;                  /* Shadow variable for I/O components */
-
 /* Entry point routine(s) prototypes */
 
 #pragma CODE_SEG __NEAR_SEG NON_BANKED

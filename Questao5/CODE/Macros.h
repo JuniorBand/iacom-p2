@@ -8,21 +8,21 @@
 #ifndef MACROS_H
 #define	MACROS_H
 
-//#include <stdint.h>
+
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
 
-// name_pin_component_GetVal()
-#define P(name_pin_component) name_pin_component##_GetVal()
-   
-//#define P(N, X) PORT##N##bits.R##N##X // P(A, 1) = PORTAbits.RA1
 
-//typedef int8_t i8;
-//typedef int16_t i16;
-//typedef uint8_t u8;
-//typedef uint16_t u16;
+#define getPin(name_pin_component) name_pin_component##_GetVal()
+
+#define setPin(name_pin_component) name_pin_component##_SetVal()
+#define clrPin(name_pin_component) name_pin_component##_ClrVal()
+#define writePin(name_pin_component, valor) \
+  ( (valor) ? (setPin(name_pin_component)) : (clrPin(name_pin_component)) )
+
+#define getPort(name_port_component) name_port_component##_GetVal()    
 
 typedef short i8;
 typedef int i16;

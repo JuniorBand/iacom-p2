@@ -7,7 +7,7 @@
 **     Version   : Component 02.001, Driver 02.06, CPU db: 2.87.411
 **     Datasheet : MC9S12C128 Rev 01.23 05/2007
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 10/11/2026, 20:23
+**     Date/Time : 11/11/2026, 09:50
 **     Abstract  :
 **         This component "MC9S12C32_80" implements properties, methods,
 **         and events of the CPU.
@@ -27,9 +27,10 @@
 
 /* MODULE Cpu. */
 
+#include "Botao_SW1.h"
 #include "PWM_1.h"
 #include "PWM_2.h"
-#include "Botao_SW1.h"
+#include "Timer_1.h"
 #include "EInt1.h"
 #include "Events.h"
 #include "Cpu.h"
@@ -42,10 +43,6 @@
 
 /* Global variables */
 volatile byte CCR_reg;                 /* Current CCR reegister */
-
-/*Definition of global shadow variables*/
-byte Shadow_P;
-
 #pragma CODE_SEG __NEAR_SEG NON_BANKED
 
 
@@ -205,25 +202,54 @@ void _EntryPoint(void)
 */
 void PE_low_level_init(void)
 {
+  /* Int. priority initialization */
+  /* HPRIO: PSEL7=1,PSEL6=0,PSEL5=0,PSEL4=0,PSEL3=1,PSEL2=1,PSEL1=1,??=0 */
+  setReg8(HPRIO, 0x8EU);               /* Set the highest interrupt priority to the ivVportp interrupt */ 
   /* Common initialization of the CPU registers */
+  /* PIEP: PIEP0=0 */
+  clrReg8Bits(PIEP, 0x01U);             
+  /* PPSP: PPSP3=0,PPSP0=0 */
+  clrReg8Bits(PPSP, 0x09U);             
+  /* PERP: PERP3=1,PERP0=1 */
+  setReg8Bits(PERP, 0x09U);             
+  /* PTP: PTP1=0 */
+  clrReg8Bits(PTP, 0x02U);              
+  /* DDRP: DDRP3=0,DDRP1=1,DDRP0=0 */
+  clrSetReg8Bits(DDRP, 0x09U, 0x02U);   
   /* PWME: ??=0,??=0,PWME5=0,PWME4=0,PWME3=0,PWME2=0,PWME1=0,PWME0=0 */
   setReg8(PWME, 0x00U);                 
+  /* MODRR: MODRR0=1 */
+  setReg8Bits(MODRR, 0x01U);            
   /* PWMCTL: CON01=0,PSWAI=0,PFRZ=0 */
   clrReg8Bits(PWMCTL, 0x1CU);           
   /* PWMCAE: CAE1=0,CAE0=0 */
   clrReg8Bits(PWMCAE, 0x03U);           
   /* PWMPOL: PPOL1=0,PPOL0=0 */
   clrReg8Bits(PWMPOL, 0x03U);           
-  /* PIEP: PIEP3=0 */
-  clrReg8Bits(PIEP, 0x08U);             
-  /* PTP: PTP3=0,PTP1=0,PTP0=0 */
-  clrReg8Bits(PTP, 0x0BU);              
-  /* DDRP: DDRP3=1,DDRP2=0,DDRP1=1,DDRP0=1 */
-  clrSetReg8Bits(DDRP, 0x04U, 0x0BU);   
-  /* PPSP: PPSP2=1 */
-  setReg8Bits(PPSP, 0x04U);             
-  /* PERP: PERP3=0,PERP2=0 */
-  clrReg8Bits(PERP, 0x0CU);             
+  /* PTT: PTT0=0 */
+  clrReg8Bits(PTT, 0x01U);              
+  /* DDRT: DDRT0=1 */
+  setReg8Bits(DDRT, 0x01U);             
+  /* TSCR1: TEN=0,TFFCA=0 */
+  clrReg8Bits(TSCR1, 0x90U);            
+  /* PACTL: CLK1=0,CLK0=0 */
+  clrReg8Bits(PACTL, 0x0CU);            
+  /* OC7M: OC7M0=0 */
+  clrReg8Bits(OC7M, 0x01U);             
+  /* TIOS: IOS7=1,IOS0=1 */
+  setReg8Bits(TIOS, 0x81U);             
+  /* TCTL2: OM0=0,OL0=0 */
+  clrReg8Bits(TCTL2, 0x03U);            
+  /* TTOV: TOV7=0,TOV0=0 */
+  clrReg8Bits(TTOV, 0x81U);             
+  /* TCTL1: OM7=0,OL7=0 */
+  clrReg8Bits(TCTL1, 0xC0U);            
+  /* TSCR2: TOI=0,TCRE=1,PR2=1,PR1=1,PR0=0 */
+  clrSetReg8Bits(TSCR2, 0x81U, 0x0EU);  
+  /* TFLG1: C7F=1,C6F=1,C5F=1,C4F=1,C3F=1,C2F=1,C1F=1,C0F=1 */
+  setReg8(TFLG1, 0xFFU);                
+  /* TIE: C0I=1 */
+  setReg8Bits(TIE, 0x01U);              
   /* CRGINT: LOCKIE=0,SCMIE=0 */
   clrReg8Bits(CRGINT, 0x12U);           
   /* VREGCTRL: LVIE=0 */
@@ -245,15 +271,26 @@ void PE_low_level_init(void)
   /* INTCR: IRQEN=0 */
   clrReg8Bits(INTCR, 0x40U);            
   /* ### MC9S12C32_80 "Cpu" init code ... */
+  /* ### BitIO "Botao_SW1" init code ... */
   /* ### Programable pulse generation "PWM_1" init code ... */
   PWM_1_Init();
   /* ### Programable pulse generation "PWM_2" init code ... */
   PWM_2_Init();
-  /* ### BitIO "Botao_SW1" init code ... */
-  Shadow_P &= 0xF7U;                   /* Initialize pin shadow variable bit */
+  /* ### TimerInt "Timer_1" init code ... */
+  
+  
+  /* TC0: BIT15=1,BIT14=1,BIT13=1,BIT12=1,BIT11=0,BIT10=1,BIT9=0,BIT8=0,BIT7=0,BIT6=0,BIT5=1,BIT4=0,BIT3=0,BIT2=1,BIT1=0,BIT0=0 */
+  setReg16(TC0, 0xF424U);              /* Store given value to the compare register */ 
+  /* TC7: BIT15=1,BIT14=1,BIT13=1,BIT12=1,BIT11=0,BIT10=1,BIT9=0,BIT8=0,BIT7=0,BIT6=0,BIT5=1,BIT4=0,BIT3=0,BIT2=1,BIT1=0,BIT0=0 */
+  setReg16(TC7, 0xF424U);              /* Store given value to the modulo register */ 
   /* ### External interrupt "EInt1" init code ... */
-  PIFP = 0x04U;                         /* Clear flag */
-  PIEP_PIEP2 = 1U;                     /* Enable interrupt */
+  /* HPRIO: PSEL7=1,PSEL6=0,PSEL5=0,PSEL4=0,PSEL3=1,PSEL2=1,PSEL1=1,??=0 */
+  setReg8(HPRIO, 0x8EU);               /* Set vector with the highest priority */ 
+  PIFP = 0x08U;                         /* Clear flag */
+  PIEP_PIEP3 = 1U;                     /* Enable interrupt */
+  /* Common peripheral initialization - ENABLE */
+  /* TSCR1: TEN=1 */
+  setReg8Bits(TSCR1, 0x80U);            
   __EI();                              /* Enable interrupts */
 }
 
