@@ -1,10 +1,10 @@
 Processor Expert Version 0446
-ProjectModificationStamp=7
+ProjectModificationStamp=8
 
 [Header]
 Name=Questao5
 SavedBy=bande
-ModificationStamp=7
+ModificationStamp=8
 Date=2026-11-11
 Product=Processor Expert version 3.05 for Freescale HCS12(X) family
 IDE=CW Plug-In IDE
@@ -28,7 +28,7 @@ ReviewCommentChanges=No
 UseExistingModules=No
 RenamePeripheries=No
 Autodependency=Yes
-ProjectCompNumb=21
+ProjectCompNumb=22
 DelUnusedPreviouslyGenFiles=Yes
 GeneratedCodeFrozen=No
 UserInterface=CLASSIC

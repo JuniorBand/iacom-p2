@@ -1,10 +1,10 @@
 /** ###################################################################
-**     Filename  : Questao1.c
-**     Project   : Questao1
+**     Filename  : Fatoria_1l.c
+**     Project   : Fatoria_1l
 **     Processor : MC9S12C128CFU16
 **     Version   : Driver 01.14
 **     Compiler  : CodeWarrior HC12 C Compiler
-**     Date/Time : 09/11/2026, 21:57
+**     Date/Time : 11/11/2026, 22:08
 **     Abstract  :
 **         Main module.
 **         This module contains user's application code.
@@ -13,7 +13,7 @@
 **         No public methods
 **
 ** ###################################################################*/
-/* MODULE Questao1 */
+/* MODULE Fatoria_1l */
 
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
@@ -30,11 +30,12 @@
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "Macros.h"
 
-i8 numero = 0;
-u16 resultado = 0; // fatorial comum nao pode ser negativo
-// (A porta B tem só 8 bits, ele é truncado a partir de 6!) 
+i8 valor = 0;
+u8 resultado = 0;
+u8 fatorial = 0;
+u8 i = 0;
 
-i8 fatorial(i8 x, u16* res_fat);
+void calcularFatorial(void);
 
 void main(void)
 {
@@ -46,54 +47,45 @@ void main(void)
 
   /* Write your code here */
   
-  //PortA_SetDir(0); // input
-  //PortB_SetDir(1); // output
-
   while(1){
-  
-    numero = getPort(PortA); // getVal retorna byte (unsigned)
-
-    if (fatorial(numero, &resultado)){
-     
-     writePort(PortB, resultado);
-  
-    } else {
-    
-     writePort(PortB, 0);
-      
-    }
+    calcularFatorial();
   }
-  
 
   /*** Processor Expert end of main routine. DON'T MODIFY THIS CODE!!! ***/
   for(;;){}
   /*** Processor Expert end of main routine. DON'T WRITE CODE BELOW!!! ***/
 } /*** End of main routine. DO NOT MODIFY THIS TEXT!!! ***/
 
+void calcularFatorial(void){
+  
+    /* Leitura dos botoes */
+    resultado = getPort(PortA);
 
-i8 fatorial(i8 x, u16* res_fat){
-  if (x < 0){
-    return 0;
-  }
-  
-  if (x == 0){
-    *res_fat = 1;
-    return 1;
-  }       
-  
-  *res_fat = x;
-  
-  while (x > 1){
-    *res_fat *= (x-1);
-    
-    x--;
-  }
-  
-  return 1;
+    /* Inversao devido ao pull-up */
+    resultado = ~resultado;
+
+    /* Interpretacao em complemento de dois */
+    valor = (i8)resultado;
+
+    /* Verifica o valor */
+    if(valor >= 0){
+        fatorial = 1;
+
+        for(i = 1; i <= valor; i++)
+        {
+            fatorial = fatorial * i;
+        }
+    }
+    else
+    {
+        fatorial = 255;
+    }
+
+    /* Envia resultado aos LEDs */
+    writePort(PortB, fatorial);
 }
 
-
-/* END Questao1 */
+/* END Fatoria_1l */
 /*
 ** ###################################################################
 **

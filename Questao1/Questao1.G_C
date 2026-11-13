@@ -2,7 +2,7 @@
 ;The file contains internal information about the Processor Expert project generation
 [Options]
 ProjectName=Questao1
-ProjectDirectory=D:\Projetos\CodeWarrior\IACOM\Questao1\
+ProjectDirectory=D:\Projetos\CodeWarrior\IACOM_P2\Questao1\
 DestEventsDirectory=CODE\
 DestDriversSubDirectory=
 DestDocumentationDirectory=DOC\

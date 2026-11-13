@@ -46,7 +46,7 @@ void Potenciometro_OnEnd(void)
   /* Write your code here ... */
   Potenciometro_GetChanValue16(0x00, (u16*)&valorRV1);
 
-  Potenciometro_Start();
+  //Potenciometro_Start();
 
 }
 
